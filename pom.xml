@@ -12,6 +12,7 @@
         <module>eureka-server</module>
         <module>restaurant</module>
         <module>api-gateway</module>
+        <module>food-model</module>
     </modules>
 
     <properties>

@@ -9,6 +9,5 @@ public class RestaurantController {
     @GetMapping
     public String text(){
         return "Hello";
-
     }
 }
