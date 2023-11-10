@@ -26,7 +26,7 @@ public class Store {
     private String address;
 
     @OneToMany(mappedBy = "store")
-    private List<Order> orders;
+    private List<Basket> baskets;
 
     @ManyToMany
     @JoinTable(

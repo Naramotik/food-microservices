@@ -33,7 +33,7 @@ public class Dish {
     private List<Store> stores;
 
     @ManyToMany(mappedBy = "dishes")
-    private List<Order> orders;
+    private List<Basket> baskets;
 
     @Enumerated(EnumType.STRING)
     private DishCategory dishCategory;

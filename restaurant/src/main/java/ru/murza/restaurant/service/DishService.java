@@ -2,10 +2,11 @@ package ru.murza.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.models.Composition;
+import ru.murza.foodmodel.models.Dish;
 import ru.murza.restaurant.repository.DishRepository;
-import ru.murza.saledelivery.enums.DishCategory;
-import ru.murza.saledelivery.models.Composition;
-import ru.murza.saledelivery.models.Dish;
+
 
 import java.util.ArrayList;
 import java.util.List;

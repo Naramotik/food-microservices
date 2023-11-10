@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.murza.foodmodel.models.Ingredient;
+import ru.murza.restaurant.dto.IngredientDTO;
 import ru.murza.restaurant.service.IngredientService;
-import ru.murza.saledelivery.dto.IngredientDTO;
-import ru.murza.saledelivery.models.Ingredient;
-import ru.murza.saledelivery.util.Mapper;
+import ru.murza.restaurant.util.Mapper;
+
 
 import java.util.List;
 

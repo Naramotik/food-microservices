@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "table_order")
-public class Order {
+public class Basket {
 
     @Id
     @Column(name = "id",

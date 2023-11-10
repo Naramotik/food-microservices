@@ -5,8 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.murza.saledelivery.enums.DishCategory;
-import ru.murza.saledelivery.models.Dish;
+import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.models.Dish;
+
 
 import java.util.List;
 

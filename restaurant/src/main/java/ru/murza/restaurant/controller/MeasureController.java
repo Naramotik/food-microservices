@@ -5,10 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import ru.murza.foodmodel.models.Measure;
+import ru.murza.restaurant.dto.MeasureDTO;
 import ru.murza.restaurant.service.MeasureService;
-import ru.murza.saledelivery.dto.MeasureDTO;
-import ru.murza.saledelivery.models.Measure;
-import ru.murza.saledelivery.util.Mapper;
+import ru.murza.restaurant.util.Mapper;
+
 
 import java.util.List;
 

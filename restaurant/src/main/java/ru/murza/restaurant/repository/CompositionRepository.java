@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.murza.saledelivery.models.Composition;
+import ru.murza.foodmodel.models.Composition;
 
 import java.util.List;
 

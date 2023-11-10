@@ -2,8 +2,9 @@ package ru.murza.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.murza.foodmodel.models.Measure;
 import ru.murza.restaurant.repository.MeasureRepository;
-import ru.murza.saledelivery.models.Measure;
+
 
 import java.util.ArrayList;
 import java.util.List;

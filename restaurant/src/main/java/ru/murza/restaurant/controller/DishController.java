@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.models.Composition;
+import ru.murza.foodmodel.models.Dish;
+import ru.murza.restaurant.dto.CompositionDTO;
+import ru.murza.restaurant.dto.DishCompositionsDTO;
+import ru.murza.restaurant.dto.DishDTO;
 import ru.murza.restaurant.service.DishService;
-import ru.murza.saledelivery.dto.CompositionDTO;
-import ru.murza.saledelivery.dto.DishCompositionsDTO;
-import ru.murza.saledelivery.dto.DishDTO;
-import ru.murza.saledelivery.enums.DishCategory;
-import ru.murza.saledelivery.models.Composition;
-import ru.murza.saledelivery.models.Dish;
-import ru.murza.saledelivery.util.Mapper;
+import ru.murza.restaurant.util.Mapper;
 
 import java.util.List;
 

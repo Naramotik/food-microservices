@@ -2,8 +2,8 @@ package ru.murza.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.murza.foodmodel.models.Ingredient;
 import ru.murza.restaurant.repository.IngredientRepository;
-import ru.murza.saledelivery.models.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;

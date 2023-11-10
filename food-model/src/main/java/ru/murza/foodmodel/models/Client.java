@@ -47,7 +47,7 @@ public class Client {
 
 
     @OneToMany(mappedBy = "client")
-    private List<Order> orders;
+    private List<Basket> baskets;
 
 
     @ManyToOne
