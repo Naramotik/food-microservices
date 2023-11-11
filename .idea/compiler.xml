@@ -12,6 +12,7 @@
         <module name="food-model" />
         <module name="eureka-server" />
         <module name="restaurant" />
+        <module name="order" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

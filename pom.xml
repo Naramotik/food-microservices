@@ -14,6 +14,7 @@
         <module>api-gateway</module>
         <module>food-model</module>
         <module>client</module>
+        <module>order</module>
     </modules>
 
     <properties>

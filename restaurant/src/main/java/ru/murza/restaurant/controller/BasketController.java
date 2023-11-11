@@ -10,7 +10,7 @@ import ru.murza.restaurant.service.BasketService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/basket")
 public class BasketController {
     @Autowired
     private BasketService basketService;
