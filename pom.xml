@@ -13,6 +13,7 @@
         <module>restaurant</module>
         <module>api-gateway</module>
         <module>food-model</module>
+        <module>client</module>
     </modules>
 
     <properties>

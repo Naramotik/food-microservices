@@ -8,12 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
+        <module name="client" />
         <module name="food-model" />
         <module name="eureka-server" />
         <module name="restaurant" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="food-client" target="17" />
       <module name="food-server" target="17" />
     </bytecodeTargetLevel>
   </component>

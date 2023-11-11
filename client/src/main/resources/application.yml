@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
-    name: restaurant
+    name: client
   datasource:
     username: 'postgres'
-    url: jdbc:postgresql://localhost:5432/restaurant
+    url: jdbc:postgresql://localhost:5432/client
     password: 'postgres'
     jpa:
       properties:
