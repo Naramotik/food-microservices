@@ -13,19 +13,15 @@ import ru.murza.restaurant.util.Mapper;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ingredient")
+@RequestMapping("/api/v1/ingredient")
 public class IngredientController {
 
     @Autowired
     private IngredientService ingredientService;
 
     @GetMapping
-    public ResponseEntity<List<IngredientDTO>> findAll(){
-        List<IngredientDTO> ingredientDTOList = ingredientService.findAll()
-                .stream()
-                .map(ingredient -> Mapper.modelMapper.map(ingredient, IngredientDTO.class))
-                .toList();
-        return new ResponseEntity<>(ingredientDTOList, HttpStatus.OK);
+    public ResponseEntity<List<Ingredient>> findAll(){
+        return new ResponseEntity<>(ingredientService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping

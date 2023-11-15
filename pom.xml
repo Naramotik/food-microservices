@@ -15,6 +15,7 @@
         <module>food-model</module>
         <module>client</module>
         <module>order</module>
+        <module>feign-clients</module>
     </modules>
 
     <properties>
@@ -46,7 +47,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>3.1.5</version>
-
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.0.4</version>
         </dependency>
     </dependencies>
 

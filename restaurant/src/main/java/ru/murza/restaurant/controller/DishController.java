@@ -16,19 +16,19 @@ import ru.murza.restaurant.util.Mapper;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dish")
+@RequestMapping("/api/v1/dish")
 public class DishController {
 
     @Autowired
     private DishService dishService;
 
     @GetMapping
-    public ResponseEntity<List<DishDTO>> findAll(){
-        List<DishDTO> dishDTO = dishService.findAll()
-                .stream()
-                .map(dish -> Mapper.modelMapper.map(dish, DishDTO.class))
-                .toList();
-        return new ResponseEntity<>(dishDTO, HttpStatus.OK);
+    public ResponseEntity<List<Dish>> findAll(){
+//        List<DishDTO> dishDTO = dishService.findAll()
+//                .stream()
+//                .map(dish -> Mapper.modelMapper.map(dish, DishDTO.class))
+//                .toList();
+        return new ResponseEntity<>(dishService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/menu")
@@ -62,6 +62,7 @@ public class DishController {
 
     @PostMapping
     public ResponseEntity<DishDTO> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
+        System.out.println(dishCompositionsDTO);
         Dish dish = dishCompositionsDTO.getDish();
         List<Composition> compositions = dishCompositionsDTO.getCompositions();
         DishDTO dishDTO = Mapper.modelMapper.map(dishService.save(dish, compositions), DishDTO.class);

@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,13 +25,14 @@ public class Composition {
     @NotNull(message = "Not empty!")
     private Double count;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredients;
+    private Ingredient ingredient;
 
 
 }

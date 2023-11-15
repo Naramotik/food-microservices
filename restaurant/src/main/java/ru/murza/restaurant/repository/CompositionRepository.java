@@ -13,6 +13,6 @@ import java.util.List;
 public interface CompositionRepository extends CrudRepository<Composition, Long> {
 
     @Transactional
-    @Query(value = "select * from Composition where dish_id = :dishId", nativeQuery = true)
-    public List<Composition> findAllByDishId(@Param("dishId") Long dishId);
+//    @Query(value = "select * from Composition where dish_id = :dishId", nativeQuery = true)
+    public List<Composition> findAllByDish_id(@Param("dish_id") Long dish_id);
 }

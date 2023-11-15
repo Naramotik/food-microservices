@@ -8,6 +8,8 @@ import ru.murza.foodmodel.models.Client;
 import ru.murza.foodmodel.models.ManagerInfo;
 import ru.murza.foodmodel.models.Roles;
 
+import java.util.Optional;
+
 @Service
 public class ClientService {
     @Autowired
@@ -27,7 +29,10 @@ public class ClientService {
         } else {
             client.setRole(new Roles(2L, null, null));
         }
-
         return clientRepository.save(client);
+    }
+
+    public Optional<Client> getClient(Long clientId){
+        return clientRepository.findById(clientId);
     }
 }

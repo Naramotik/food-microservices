@@ -25,10 +25,10 @@ public class Order {
     private Long basket_id;
 
     @Column(name = "client_id")
-    private Long client_id;
+    private Long clientId;
 
     @Column(name = "store_id")
-    private Long store_id;
+    private Long storeId;
 
     @Column(name = "order_date",
             nullable = false)

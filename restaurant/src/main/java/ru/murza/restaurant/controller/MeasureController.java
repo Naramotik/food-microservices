@@ -15,14 +15,14 @@ import java.util.List;
 
 @RestController
 @Transactional
-@RequestMapping("/measure")
+@RequestMapping("/api/v1/measure")
 public class MeasureController {
 
     @Autowired
     private MeasureService measureService;
 
     @GetMapping
-    public ResponseEntity<List<MeasureDTO>> getMeasure(){
+    public ResponseEntity<List<MeasureDTO>> getAllMeasures(){
         List<MeasureDTO> measureDTOList = measureService.getMeasures()
                 .stream()
                 .map(measure -> Mapper.modelMapper.map(measure, MeasureDTO.class))

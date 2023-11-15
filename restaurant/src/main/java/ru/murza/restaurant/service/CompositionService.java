@@ -3,6 +3,9 @@ package ru.murza.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.murza.foodmodel.models.Composition;
+import ru.murza.foodmodel.models.Dish;
+import ru.murza.restaurant.dto.DishCompositionDTO;
+import ru.murza.restaurant.dto.DishCompositionsDTO;
 import ru.murza.restaurant.repository.CompositionRepository;
 
 
@@ -22,11 +25,13 @@ public class CompositionService {
     }
 
     public List<Composition> findByDishId(Long dishId){
-        return compositionRepository.findAllByDishId(dishId);
+        return compositionRepository.findAllByDish_id(dishId);
     }
 
-    public Composition save(Composition composition){
-        System.out.println(composition.getIngredients());
+    public Composition save(DishCompositionDTO dishCompositionDTO){
+        Composition composition = dishCompositionDTO.getComposition();
+        Dish dish = dishCompositionDTO.getDish();
+        composition.setDish(dish);
         return compositionRepository.save(composition);
     }
 

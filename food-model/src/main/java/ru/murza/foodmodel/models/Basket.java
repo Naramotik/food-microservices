@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,12 +26,10 @@ public class Basket {
     @Column(name = "client_id",
             nullable = false)
     @NotNull(message = "Not empty")
-    private Long client_id;
+    private Long clientId;
 
-    @Column(name = "order_id",
-            nullable = false)
-    @NotNull(message = "Not empty")
-    private Long order_id;
+    @Column(name = "order_id")
+    private Long orderId;
 
     @Column(name = "total_price",
             nullable = false)
@@ -42,8 +41,8 @@ public class Basket {
     private Store store;
 
     @ManyToMany
-    @JoinTable(name = "order_dish",
-            joinColumns = @JoinColumn(name = "order_id"),
+    @JoinTable(name = "basket_dish",
+            joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id"))
     private List<Dish> dishes;
 }

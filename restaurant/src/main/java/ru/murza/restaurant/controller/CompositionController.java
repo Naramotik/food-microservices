@@ -6,30 +6,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Composition;
 import ru.murza.restaurant.dto.CompositionDTO;
+import ru.murza.restaurant.dto.DishCompositionDTO;
+import ru.murza.restaurant.dto.DishCompositionsDTO;
 import ru.murza.restaurant.service.CompositionService;
 import ru.murza.restaurant.util.Mapper;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/composition")
+@RequestMapping("/api/v1/composition")
 public class CompositionController {
 
     @Autowired
     private CompositionService compositionService;
 
     @GetMapping
-    public ResponseEntity<List<CompositionDTO>> findAll(){
-        List<CompositionDTO> compositionDTOList = compositionService.findAll()
-                .stream()
-                .map(composition -> Mapper.modelMapper.map(composition, CompositionDTO.class))
-                .toList();
-        return new ResponseEntity<>(compositionDTOList, HttpStatus.OK);
+    public ResponseEntity<List<Composition>> findAll(){
+        return new ResponseEntity<>(compositionService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<CompositionDTO> save(@RequestBody Composition composition){
-        Composition newComposition = compositionService.save(composition);
+    public ResponseEntity<CompositionDTO> save(@RequestBody DishCompositionDTO dishCompositionDTO){
+        Composition newComposition = compositionService.save(dishCompositionDTO);
         CompositionDTO outCompositionDTO = Mapper.modelMapper.map(newComposition, CompositionDTO.class);
         return new ResponseEntity<>(outCompositionDTO, HttpStatus.CREATED);
     }

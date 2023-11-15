@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class Roles {
     @Column(name = "title")
     private String title;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
     private List<Client> clients;
 

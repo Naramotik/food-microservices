@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"ru.murza"})
-@EnableJpaRepositories(basePackages = {"ru.murza.client"})
+@EnableJpaRepositories(basePackages = {"ru.murza.order"})
 public class OrderApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderApplication.class, args);

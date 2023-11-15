@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,10 +28,11 @@ public class Ingredient {
     @NotNull(message = "Not empty!")
     private String title;
 
-    @OneToMany(mappedBy = "ingredients")
-    private List<Composition> composition;
+    @JsonIgnore
+    @OneToMany(mappedBy = "ingredient")
+    private List<Composition> compositions;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "measure_id")
     private Measure measure;
 }
