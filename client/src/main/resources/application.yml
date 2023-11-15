@@ -5,17 +5,17 @@ spring:
   application:
     name: client
   datasource:
-    username: 'postgres'
     url: jdbc:postgresql://localhost:5432/client
-    password: 'postgres'
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
-          format_sql: 'true'
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: 'true'
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 eureka:
   client:
     service-url:

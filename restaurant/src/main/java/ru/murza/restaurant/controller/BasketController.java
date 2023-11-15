@@ -25,9 +25,9 @@ public class BasketController {
         return new ResponseEntity<>(basketService.save(basket), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/orderId")
-    public ResponseEntity<?> delete(@PathVariable("orderId") Long orderId){
-        basketService.deleteById(orderId);
+    @DeleteMapping("/basketId")
+    public ResponseEntity<?> delete(@PathVariable("basketId") Long basketId){
+        basketService.deleteById(basketId);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

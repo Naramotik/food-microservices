@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "store")
+@Table(name = "store", schema = "restaurant_schema", catalog = "postgres")
 public class Store {
 
     @Id

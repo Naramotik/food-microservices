@@ -1,11 +1,11 @@
 server:
-  port: 8083
+  port: 8082
 
 spring:
   application:
     name: client
   datasource:
-    url: jdbc:postgresql://localhost:5432/order
+    url: jdbc:postgresql://localhost:5432/client
     username: postgres
     password: postgres
   jpa:
@@ -14,7 +14,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 eureka:
   client:

@@ -8,27 +8,24 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "Status")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "roles", schema = "client_schema", catalog = "postgres")
-public class Roles {
-
+@Table(name = "status", schema = "order_schema", catalog = "postgres")
+public class Status {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(
+            name = "status",
+            nullable = false
+    )
     @NotNull(message = "Not empty!")
-    @Column(name = "title")
-    private String title;
+    private String name;
 
-    @OneToMany(mappedBy = "role")
-    private List<Client> clients;
-
-    @Override
-    public String toString() {
-        return title;
-    }
+    @OneToMany(mappedBy = "status")
+    private List<Order> orders;
 }

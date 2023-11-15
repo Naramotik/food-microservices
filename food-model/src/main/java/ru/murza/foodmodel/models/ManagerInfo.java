@@ -28,9 +28,9 @@ public class ManagerInfo implements Serializable {
     @Column(name = "itn", length = 12)
     private String itn;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+//    @ManyToOne
+//    @JoinColumn(name = "store_id")
+//    private Store store;
 
     @Override
     public boolean equals(Object o) {

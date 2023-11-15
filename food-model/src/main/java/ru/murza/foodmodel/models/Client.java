@@ -13,7 +13,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "client")
+@Table(name = "client", schema = "client_schema", catalog = "postgres")
 public class Client {
 
     @Id
@@ -46,8 +46,8 @@ public class Client {
     private ManagerInfo managerInfo;
 
 
-    @OneToMany(mappedBy = "client")
-    private List<Basket> baskets;
+//    @OneToMany(mappedBy = "client")
+//    private List<Basket> baskets;
 
 
     @ManyToOne

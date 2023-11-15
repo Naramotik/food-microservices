@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Order")
+@Entity(name = "Basket")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "table_order")
+@Table(name = "basket", schema = "restaurant_schema", catalog = "postgres")
 public class Basket {
 
     @Id
@@ -22,29 +22,20 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_date",
+    @Column(name = "customer_id",
             nullable = false)
-    @NotNull(message = "Not empty!")
-    private Date order_date;
+    @NotNull(message = "Not empty")
+    private Long customer_id;
 
-    @Column(name = "address",
+    @Column(name = "order_id",
             nullable = false)
-    @NotNull(message = "Not empty!")
-    private String address;
+    @NotNull(message = "Not empty")
+    private Long order_id;
 
     @Column(name = "total_price",
             nullable = false)
     @NotNull(message = "Not empty!")
     private Double total_price;
-
-    @Column(name = "status",
-            nullable = false)
-    @NotNull(message = "Not empty!")
-    private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
