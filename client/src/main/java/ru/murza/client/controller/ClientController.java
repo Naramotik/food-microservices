@@ -1,27 +1,24 @@
 package ru.murza.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.murza.client.dto.ClientToSave;
 import ru.murza.client.repository.ClientRepository;
 
+import ru.murza.client.service.ClientService;
 import ru.murza.foodmodel.models.Client;
 
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/api/v1")
 public class ClientController {
     @Autowired
-    ClientRepository clientRepository;
-    @GetMapping
-    public String hello(){
-        return "hello";
-    }
-    @GetMapping("/c")
-    public void post(){
-        Client client = new Client(1L,"dima", "80080", "passs",null,null);
-        clientRepository.save(client);
+    private ClientService clientService;
+
+    @PostMapping
+    public ResponseEntity<Client> post(@RequestBody ClientToSave clientToSave){
+        return new ResponseEntity<>(clientService.save(clientToSave), HttpStatus.CREATED);
     }
 }

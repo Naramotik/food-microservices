@@ -22,10 +22,10 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "customer_id",
+    @Column(name = "client_id",
             nullable = false)
     @NotNull(message = "Not empty")
-    private Long customer_id;
+    private Long client_id;
 
     @Column(name = "order_id",
             nullable = false)

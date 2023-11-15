@@ -24,8 +24,8 @@ public class Order {
     @Column(name = "basket_id")
     private Long basket_id;
 
-    @Column(name = "customer_id")
-    private Long customer_id;
+    @Column(name = "client_id")
+    private Long client_id;
 
     @Column(name = "store_id")
     private Long store_id;
