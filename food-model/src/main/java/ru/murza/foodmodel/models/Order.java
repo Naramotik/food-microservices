@@ -3,6 +3,7 @@ package ru.murza.foodmodel.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity(name = "Order")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ord", schema = "order_schema", catalog = "postgres")
