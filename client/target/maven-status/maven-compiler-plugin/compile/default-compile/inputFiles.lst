@@ -1,0 +1,8 @@
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\dto\ClientToSave.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\controller\ClientController.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\repository\ClientRepository.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\ClientApplication.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\exception\ClientNotFoundException.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\advice\ClientExceptionHandler.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\service\ClientService.java
+C:\Users\I_FOX_YO\Desktop\food-microservices\client\src\main\java\ru\murza\client\advice\ArgumentsExceptionHandler.java
