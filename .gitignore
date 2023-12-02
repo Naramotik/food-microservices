@@ -1,0 +1,7 @@
+/feign-clients/target/
+/restaurant/target/
+/order/target/
+/food-model/target
+/eureka-server/target
+/client/target
+/api-gateway/target
