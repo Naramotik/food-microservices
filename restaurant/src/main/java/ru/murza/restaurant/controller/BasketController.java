@@ -1,5 +1,6 @@
 package ru.murza.restaurant.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class BasketController {
     }
 
     @PostMapping("/dish/{client_id}") // Добавление блюда в корзину
-    public ResponseEntity<Basket> addDishToBasket(@RequestBody Dish dish,
+    public ResponseEntity<Basket> addDishToBasket(@Valid @RequestBody Dish dish,
                                                   @PathVariable Long client_id){
         return new ResponseEntity<>(basketService.addDishToBasket(dish, client_id), HttpStatus.ACCEPTED);
     }

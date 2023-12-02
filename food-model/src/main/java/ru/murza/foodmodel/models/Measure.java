@@ -2,6 +2,7 @@ package ru.murza.foodmodel.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class Measure {
             name = "type",
             nullable = false
     )
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty type!")
     private String type;
 
     @JsonIgnore

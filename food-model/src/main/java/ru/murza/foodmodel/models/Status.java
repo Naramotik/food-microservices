@@ -1,6 +1,7 @@
 package ru.murza.foodmodel.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Status {
             name = "status",
             nullable = false
     )
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty status name!")
     private String name;
 
     @OneToMany(mappedBy = "status")

@@ -2,6 +2,7 @@ package ru.murza.foodmodel.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +22,10 @@ public class Roles {
     @Column(name = "id")
     private Long id;
 
-    @NotNull(message = "Not empty!")
-    @Column(name = "title")
+    @Column(name = "title",
+            nullable = false
+    )
+    @NotEmpty(message = "Not empty title!")
     private String title;
 
     @JsonIgnore

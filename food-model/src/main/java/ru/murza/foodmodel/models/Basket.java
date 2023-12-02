@@ -41,7 +41,7 @@ public class Basket {
     private Store store;
 
     @ManyToMany
-    @JoinTable(name = "basket_dish",
+    @JoinTable(name = "basket_dish", schema = "restaurant_schema", catalog = "postgres",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id"))
     private List<Dish> dishes;

@@ -2,10 +2,14 @@ package ru.murza.foodmodel.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class Ingredient {
             name = "title",
             nullable = false
     )
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty title!")
     private String title;
 
     @JsonIgnore

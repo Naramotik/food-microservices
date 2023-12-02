@@ -2,6 +2,7 @@ package ru.murza.foodmodel.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,12 +25,12 @@ public class Dish {
 
     @Column(name = "cost",
             nullable = false)
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty cost!")
     private Double cost;
 
     @Column(name = "title",
             nullable = false)
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty title!")
     private String title;
 
     @OneToMany(mappedBy = "dish")

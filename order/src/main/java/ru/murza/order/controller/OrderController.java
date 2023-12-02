@@ -1,5 +1,6 @@
 package ru.murza.order.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Basket;
 import ru.murza.foodmodel.models.Order;
 import ru.murza.order.dto.OrderToSave;
+import ru.murza.order.exception.StatusNotFoundException;
+import ru.murza.order.exception.UserNotFoundException;
 import ru.murza.order.service.OrderService;
 
 @RestController
@@ -17,7 +20,7 @@ public class OrderController {
 
     @PostMapping("/{client_id}")
     public ResponseEntity<Order> saveOrder(@PathVariable Long client_id,
-                                           @RequestBody OrderToSave orderToSave){
+                                           @Valid @RequestBody OrderToSave orderToSave) throws UserNotFoundException, StatusNotFoundException {
         return new ResponseEntity<>(orderService.saveOrder(client_id, orderToSave), HttpStatus.OK);
     }
 }

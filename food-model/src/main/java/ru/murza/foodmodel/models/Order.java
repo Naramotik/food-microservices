@@ -1,6 +1,7 @@
 package ru.murza.foodmodel.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,17 +35,15 @@ public class Order {
 
     @Column(name = "order_date",
             nullable = false)
-    @NotNull(message = "Not empty!")
     private Date order_date;
 
     @Column(name = "address",
             nullable = false)
-    @NotNull(message = "Not empty!")
+    @NotEmpty(message = "Not empty address!")
     private String address;
 
     @Column(name = "total_price",
             nullable = false)
-    @NotNull(message = "Not empty!")
     private Double total_price;
 
     @ManyToOne

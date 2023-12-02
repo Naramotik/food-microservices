@@ -1,5 +1,6 @@
 package ru.murza.restaurant.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class IngredientController {
     }
 
     @PostMapping
-    public ResponseEntity<IngredientDTO> save(@RequestBody Ingredient ingredient){
+    public ResponseEntity<IngredientDTO> save(@Valid @RequestBody Ingredient ingredient){
         Ingredient savedIngredient = ingredientService.save(ingredient);
         IngredientDTO outIngredientDTO = Mapper.modelMapper.map(savedIngredient, IngredientDTO.class);
         return new ResponseEntity<>(outIngredientDTO, HttpStatus.CREATED);
@@ -34,6 +35,6 @@ public class IngredientController {
     @DeleteMapping("/ingredientId")
     public ResponseEntity<?> delete(@PathVariable("ingredientId") Long ingredientId){
         ingredientService.deleteById(ingredientId);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package ru.murza.restaurant.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,6 @@ public class DishController {
 
     @GetMapping
     public ResponseEntity<List<Dish>> findAll(){
-//        List<DishDTO> dishDTO = dishService.findAll()
-//                .stream()
-//                .map(dish -> Mapper.modelMapper.map(dish, DishDTO.class))
-//                .toList();
         return new ResponseEntity<>(dishService.findAll(), HttpStatus.OK);
     }
 
@@ -37,11 +34,11 @@ public class DishController {
 
         for(DishCategory enumCategory : DishCategory.values()){
             if (category.equals(enumCategory.toString()))
-                dishCategory = enumCategory;                                                                            //TODO EXCEPTION
+                dishCategory = enumCategory;
         }
-
         if(dishCategory == null)
             throw new RuntimeException("Category not found");
+
         List<Dish> dishes = dishService.findByDishCategory(dishCategory);
         List<DishDTO> dishesDTO = dishes
                 .stream()
@@ -61,7 +58,7 @@ public class DishController {
     }
 
     @PostMapping
-    public ResponseEntity<DishDTO> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
+    public ResponseEntity<DishDTO> save(@Valid @RequestBody DishCompositionsDTO dishCompositionsDTO){
         System.out.println(dishCompositionsDTO);
         Dish dish = dishCompositionsDTO.getDish();
         List<Composition> compositions = dishCompositionsDTO.getCompositions();

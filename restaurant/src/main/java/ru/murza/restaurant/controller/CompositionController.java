@@ -1,5 +1,6 @@
 package ru.murza.restaurant.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class CompositionController {
     }
 
     @PostMapping
-    public ResponseEntity<CompositionDTO> save(@RequestBody DishCompositionDTO dishCompositionDTO){
+    public ResponseEntity<CompositionDTO> save(@Valid @RequestBody DishCompositionDTO dishCompositionDTO){
         Composition newComposition = compositionService.save(dishCompositionDTO);
         CompositionDTO outCompositionDTO = Mapper.modelMapper.map(newComposition, CompositionDTO.class);
         return new ResponseEntity<>(outCompositionDTO, HttpStatus.CREATED);

@@ -1,9 +1,11 @@
 package ru.murza.order.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Status;
+import ru.murza.order.exception.StatusNotFoundException;
 import ru.murza.order.service.StatusService;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class StatusController {
     }
 
     @PostMapping // Создание нового статуса
-    public ResponseEntity<Status> save(String title){
-        return new ResponseEntity<>(statusService.save(title), HttpStatus.CREATED);
+    public ResponseEntity<Status> save(@Valid @RequestBody Status status){
+        return new ResponseEntity<>(statusService.save(status), HttpStatus.CREATED);
     }
 
     @GetMapping // Вывод всех статусов
@@ -28,7 +30,7 @@ public class StatusController {
     }
 
     @GetMapping("/{title}") // Поиск статуса по названию
-    public ResponseEntity<Status> findByTitle(@PathVariable String title){
+    public ResponseEntity<Status> findByTitle(@PathVariable String title) throws StatusNotFoundException {
         return new ResponseEntity<>(statusService.findByName(title), HttpStatus.OK);
     }
 }

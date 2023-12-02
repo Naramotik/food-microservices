@@ -30,7 +30,7 @@ public class Store {
 
     @ManyToMany
     @JoinTable(
-            name = "store_dish",
+            name = "store_dish", schema = "restaurant_schema", catalog = "postgres",
             joinColumns = @JoinColumn(name = "store_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )

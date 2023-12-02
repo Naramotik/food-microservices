@@ -3,6 +3,7 @@ package ru.murza.client.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.murza.client.dto.ClientToSave;
+import ru.murza.client.exception.ClientNotFoundException;
 import ru.murza.client.repository.ClientRepository;
 import ru.murza.foodmodel.models.Client;
 import ru.murza.foodmodel.models.ManagerInfo;
@@ -32,7 +33,11 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Optional<Client> getClient(Long clientId){
-        return clientRepository.findById(clientId);
+    public Client getClient(Long clientId) throws ClientNotFoundException {
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        if (clientOptional.isPresent()){
+            return clientOptional.get();
+        } else throw new ClientNotFoundException("Client not found");
+
     }
 }

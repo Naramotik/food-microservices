@@ -1,6 +1,7 @@
 package ru.murza.restaurant.dto;
 
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 public class DishCompositionDTO {
 
+    @NotNull(message = "Dish is null")
     Dish dish;
-
+    @NotNull(message = "Composition is null")
     Composition composition;
+
 }
 

@@ -8,6 +8,8 @@ import ru.murza.foodmodel.models.Dish;
 import ru.murza.foodmodel.models.Order;
 import ru.murza.foodmodel.models.Status;
 import ru.murza.order.dto.OrderToSave;
+import ru.murza.order.exception.StatusNotFoundException;
+import ru.murza.order.exception.UserNotFoundException;
 import ru.murza.order.repository.OrderRepository;
 
 import java.util.Date;
@@ -26,7 +28,7 @@ public class OrderService {
         this.statusService = statusService;
     }
 
-    public Order saveOrder(Long clientId, OrderToSave orderToSave){
+    public Order saveOrder(Long clientId, OrderToSave orderToSave) throws UserNotFoundException, StatusNotFoundException {
         if (isUserPresent(clientId)){
             Status status = statusService.findByName("ACCEPTED");
             Basket basket = orderToSave.getBasket();
@@ -42,7 +44,7 @@ public class OrderService {
                     .build();
             restaurantClient.delete(basket.getId());
             return orderRepository.save(order);
-        } else return null;
+        } else throw new UserNotFoundException("User not found");
     }
 
     public boolean isUserPresent(Long clientId){

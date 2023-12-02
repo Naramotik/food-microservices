@@ -1,11 +1,13 @@
 package ru.murza.foodmodel.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,18 +27,22 @@ public class Client {
 
     @Column(name = "name",
             nullable = false)
-    @NotNull(message = "Not empty!")
+    @Length(min = 1, max = 30)
+    @NotEmpty(message = "Not empty name!")
     private String name;
 
     @Column(name = "number",
             nullable = false,
             unique = true)
-    @NotNull(message = "Not empty!")
+    @Length(min = 6, max = 10, message = "Wrong number length!")
+    @NotEmpty(message = "Not empty number!")
     private String number;
 
-    @NotNull(message = "Not empty!")
+
     @Column(name = "password",
             nullable = false)
+    @NotEmpty(message = "Not empty password!")
+    @Length(min = 6, message = "Short password!")
     private String password;
 
     @Embedded
@@ -47,18 +53,9 @@ public class Client {
     })
     private ManagerInfo managerInfo;
 
-
-//    @OneToMany(mappedBy = "client")
-//    private List<Basket> baskets;
-
-
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Roles role;
-
-    public String getRoles() {
-        return role.toString();
-    }
 
     @Override
     public boolean equals(Object o) {
