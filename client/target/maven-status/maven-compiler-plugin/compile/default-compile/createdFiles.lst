@@ -1,8 +1,0 @@
-ru\murza\client\advice\ClientExceptionHandler.class
-ru\murza\client\controller\ClientController.class
-ru\murza\client\repository\ClientRepository.class
-ru\murza\client\exception\ClientNotFoundException.class
-ru\murza\client\dto\ClientToSave.class
-ru\murza\client\ClientApplication.class
-ru\murza\client\advice\ArgumentsExceptionHandler.class
-ru\murza\client\service\ClientService.class
