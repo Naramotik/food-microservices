@@ -5,7 +5,7 @@ spring:
   application:
     name: restaurant
   datasource:
-    url: jdbc:postgresql://localhost:5432/restaurant
+    url: jdbc:postgresql://postgres:5432/restaurant
     username: postgres
     password: postgres
   jpa:
@@ -19,9 +19,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    hostname: localhost
+      defaultZone: http://eureka-server:8761/eureka
 
 management:
   endpoint:

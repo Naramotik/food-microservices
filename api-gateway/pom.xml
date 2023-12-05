@@ -17,9 +17,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.2.0</version>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>build-docker-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -45,4 +60,6 @@
 <!--        </dependency>-->
 
     </dependencies>
+
+
 </project>

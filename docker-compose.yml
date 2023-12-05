@@ -29,8 +29,73 @@ services:
       - postgres
     restart: unless-stopped
 
+  eureka-server:
+    image: iwolfyo/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring
+
+  api-gateway:
+    image: iwolfyo/api-gateway:latest
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - eureka-server
+
+  restaurant:
+    image: iwolfyo/restaurant:latest
+    container_name: restaurant
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - eureka-server
+      - postgres
+
+  client:
+    image: iwolfyo/client:latest
+    container_name: client
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - eureka-server
+      - postgres
+
+  order:
+    image: iwolfyo/order:latest
+    container_name: order
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - eureka-server
+      - postgres
+
+
 networks:
   postgres:
+    driver: bridge
+  spring:
     driver: bridge
 
 volumes:
