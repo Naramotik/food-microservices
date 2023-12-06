@@ -1,5 +1,8 @@
 package ru.murza.order.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +17,16 @@ import ru.murza.order.service.OrderService;
 
 @RestController
 @RequestMapping("/api/v1/order")
+@Tag(name = "Order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Operation(
+            summary = "Создание заказа",
+            description = "Создание заказа",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
     @PostMapping("/{client_id}")
     public ResponseEntity<Order> saveOrder(@PathVariable Long client_id,
                                            @Valid @RequestBody OrderToSave orderToSave) throws UserNotFoundException, StatusNotFoundException {

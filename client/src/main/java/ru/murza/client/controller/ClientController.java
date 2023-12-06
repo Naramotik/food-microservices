@@ -1,5 +1,8 @@
 package ru.murza.client.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,17 +20,31 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/client")
+@Tag(name = "Client")
 public class ClientController {
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
 
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    @Operation(
+            summary = "Создание пользователя",
+            description = "Создание пользователя",
+            responses = @ApiResponse(description = "CREATED", responseCode = "201")
+    )
     @PostMapping
     public ResponseEntity<Client> post(@Valid @RequestBody ClientToSave clientToSave){
         return new ResponseEntity<>(clientService.save(clientToSave), HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Получение пользователя",
+            description = "Получение пользователя по id",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
     @GetMapping("/{client_id}")
     public ResponseEntity<Client> getClient(@PathVariable Long client_id) throws ClientNotFoundException {
-        return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.CREATED);
+        return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.OK);
     }
 }
