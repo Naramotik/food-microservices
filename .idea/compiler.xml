@@ -18,6 +18,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="authentication" target="17" />
       <module name="food-client" target="17" />
       <module name="food-server" target="17" />
     </bytecodeTargetLevel>

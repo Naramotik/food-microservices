@@ -48,4 +48,22 @@ public class ClientController {
         return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.OK);
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping("/register")
+    public String addNewUser(@RequestBody Client client){
+        return clientService.saveUser(client);
+    }
+
+    @PostMapping("/token")
+    public String getToken(@RequestBody Client client){
+        return clientService.generateToken(client.getName());
+    }
+
+    @GetMapping("/validate")
+    public String validateToken(@RequestParam("token") String token){
+        clientService.validateToken(token);
+        return "token is valid";
+    }
+
 }

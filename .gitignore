@@ -6,3 +6,4 @@
 /client/target
 /api-gateway/target
 /amqp/target
+/authentication/target
