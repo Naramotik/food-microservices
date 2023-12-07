@@ -47,4 +47,5 @@ public class ClientController {
     public ResponseEntity<Client> getClient(@PathVariable Long client_id) throws ClientNotFoundException {
         return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.OK);
     }
+
 }

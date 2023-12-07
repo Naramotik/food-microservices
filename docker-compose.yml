@@ -41,7 +41,7 @@ services:
     image: iwolfyo/api-gateway:latest
     container_name: api-gateway
     ports:
-      - "8080:8080"
+      - "8089:8089"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
@@ -62,6 +62,7 @@ services:
     depends_on:
       - eureka-server
       - postgres
+      - rabbitmq
 
   client:
     image: iwolfyo/client:latest
@@ -76,6 +77,7 @@ services:
     depends_on:
       - eureka-server
       - postgres
+      - rabbitmq
 
   order:
     image: iwolfyo/order:latest
@@ -90,6 +92,17 @@ services:
     depends_on:
       - eureka-server
       - postgres
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - spring
+
 
 
 networks:

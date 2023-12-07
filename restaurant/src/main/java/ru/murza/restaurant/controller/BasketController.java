@@ -61,7 +61,7 @@ public class BasketController {
             responses = @ApiResponse(description = "ACCEPTED",responseCode = "202")
     )
     @PostMapping("/dish/{client_id}")
-    public ResponseEntity<Basket> addDishToBasket(@Valid @RequestBody Dish dish,
+    public ResponseEntity<Basket> addDishToBasket(@RequestBody Dish dish,
                                                   @PathVariable Long client_id){
         return new ResponseEntity<>(basketService.addDishToBasket(dish, client_id), HttpStatus.ACCEPTED);
     }

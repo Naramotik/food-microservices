@@ -16,6 +16,7 @@
         <module>client</module>
         <module>order</module>
         <module>feign-clients</module>
+        <module>amqp</module>
     </modules>
 
     <properties>

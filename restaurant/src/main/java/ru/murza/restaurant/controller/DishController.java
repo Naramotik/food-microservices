@@ -85,7 +85,7 @@ public class DishController {
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
     @PostMapping
-    public ResponseEntity<DishDTO> save(@Valid @RequestBody DishCompositionsDTO dishCompositionsDTO){
+    public ResponseEntity<DishDTO> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
         System.out.println(dishCompositionsDTO);
         Dish dish = dishCompositionsDTO.getDish();
         List<Composition> compositions = dishCompositionsDTO.getCompositions();

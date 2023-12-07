@@ -16,10 +16,20 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    addresses: rabbitmq:5672
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key
 
 management:
   endpoint:

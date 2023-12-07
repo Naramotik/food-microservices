@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="feign-clients" />
         <module name="food-model" />
+        <module name="amqp" />
         <module name="restaurant" />
         <module name="api-gateway" />
         <module name="client" />

@@ -5,3 +5,4 @@
 /eureka-server/target
 /client/target
 /api-gateway/target
+/amqp/target
