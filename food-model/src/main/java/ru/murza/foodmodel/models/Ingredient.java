@@ -39,4 +39,8 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "measure_id")
     private Measure measure;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ingredient")
+    private List<Consignment> consignments;
 }

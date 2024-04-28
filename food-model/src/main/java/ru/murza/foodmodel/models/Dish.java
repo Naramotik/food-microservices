@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.murza.foodmodel.enums.DishCategory;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity(name = "Dish")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "dish", schema = "restaurant_schema", catalog = "postgres")

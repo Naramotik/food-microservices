@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ import ru.murza.order.dto.OrderToSave;
 import ru.murza.order.exception.StatusNotFoundException;
 import ru.murza.order.exception.UserNotFoundException;
 import ru.murza.order.service.OrderService;
+
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/order")
@@ -32,4 +36,25 @@ public class OrderController {
                                            @Valid @RequestBody OrderToSave orderToSave) throws UserNotFoundException, StatusNotFoundException {
         return new ResponseEntity<>(orderService.saveOrder(client_id, orderToSave), HttpStatus.OK);
     }
+
+    @Operation(
+            summary = "Просмотр всех заказов",
+            description = "Просмотр всех заказов",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping
+    public ResponseEntity<List<Order>> findAll(){
+        return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Просмотр популярных заказов",
+            description = "Просмотр популярных заказов",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/popular")
+    public ResponseEntity<HashMap<String, Integer>> findPopular(){
+        return new ResponseEntity<>(orderService.findPopularDishes(), HttpStatus.OK);
+    }
+
 }

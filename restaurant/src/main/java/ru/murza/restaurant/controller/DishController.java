@@ -106,4 +106,16 @@ public class DishController {
         dishService.deleteById(dishId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+    @Operation(
+            summary = "БЕЗ ПАРАМЕТРА CATEGORY - БЛЮДО ДОБАВИТСЯ В СТОП-ЛИСТ" +
+                      "ЕСЛИ C ПАРАМЕТРОМ - НАЗНАЧИТСЯ КАТЕГОРИЯ, КОТОРАЯ ПЕРЕДАЕТСЯ В ПАРАМЕТРЕ И УБЕРЕТСЯ ИЗ СТОП-ЛИСТА ЕСЛИ ОНО ТАМ БЫЛО",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @PostMapping("/{dishId}")
+    public ResponseEntity<Dish> stopList(@PathVariable("dishId") Long dishId,
+                                         @RequestParam(required = false) String category){
+        return new ResponseEntity<>(dishService.stopDish(dishId, category), HttpStatus.OK);
+    }
 }

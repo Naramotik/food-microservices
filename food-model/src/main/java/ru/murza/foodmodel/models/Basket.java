@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.murza.foodmodel.enums.BasketStatus;
+import ru.murza.foodmodel.enums.DishCategory;
 
 import java.util.Date;
 import java.util.List;
@@ -36,13 +38,22 @@ public class Basket {
     @NotNull(message = "Not empty!")
     private Double total_price;
 
+    @Column(name = "acceptance_date")
+    private Date acceptance_date;
+
+    @Enumerated(EnumType.STRING)
+    private BasketStatus basketStatus;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "basket_dish", schema = "restaurant_schema", catalog = "postgres",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id"))
     private List<Dish> dishes;
+
 }

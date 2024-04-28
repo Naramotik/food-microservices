@@ -10,5 +10,7 @@ public enum DishCategory {
 
     BEVERAGES,
 
-    OTHER
+    OTHER,
+
+    STOPPED
 }

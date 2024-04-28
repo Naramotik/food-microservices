@@ -39,8 +39,8 @@ public class Order {
 
     @Column(name = "address",
             nullable = false)
-    @NotEmpty(message = "Not empty address!")
-    private String address;
+    @NotEmpty(message = "Not empty table!")
+    private String table;
 
     @Column(name = "total_price",
             nullable = false)

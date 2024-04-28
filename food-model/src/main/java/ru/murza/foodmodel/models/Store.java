@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Basket> baskets;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "store_dish", schema = "restaurant_schema", catalog = "postgres",

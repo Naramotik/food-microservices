@@ -1,24 +1,34 @@
 package ru.murza.restaurant.service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.murza.feignclients.client.ClientClient;
+import ru.murza.foodmodel.enums.BasketStatus;
 import ru.murza.foodmodel.models.Basket;
+import ru.murza.foodmodel.models.Composition;
 import ru.murza.foodmodel.models.Dish;
+import ru.murza.foodmodel.models.Ingredient;
+import ru.murza.restaurant.dto.IngredientsExpensesDTO;
 import ru.murza.restaurant.repository.BasketRepository;
+import ru.murza.restaurant.repository.IngredientRepository;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @Service
 public class BasketService {
 
     private final BasketRepository basketRepository;
+    private final IngredientRepository ingredientRepository;
     private final ClientClient clientClient;
 
-    public BasketService(BasketRepository basketRepository, ClientClient clientClient) {
+    public BasketService(BasketRepository basketRepository, IngredientRepository ingredientRepository, ClientClient clientClient) {
         this.basketRepository = basketRepository;
+        this.ingredientRepository = ingredientRepository;
         this.clientClient = clientClient;
     }
 
@@ -29,7 +39,8 @@ public class BasketService {
     }
 
     public Basket findBasket(Long client_id){
-        if (isUserPresent(client_id) && basketRepository.findByClientId(client_id).isPresent()){
+        Optional<Basket> basket = basketRepository.findByClientId(client_id);
+        if (isUserPresent(client_id) && basket.isPresent()){
             return basketRepository.findByClientId(client_id).get();
         } else  return null;
     }
@@ -47,6 +58,7 @@ public class BasketService {
     @Transactional
     public Basket addDishToBasket(Dish dish, Long client_id){
         if(isUserPresent(client_id)){
+            System.out.println("in 1");
             Basket basket;
             if (basketRepository.findByClientId(client_id).isPresent()) {
                 basket = basketRepository.findByClientId(client_id).get();
@@ -75,6 +87,45 @@ public class BasketService {
     }
 
     public boolean isUserPresent(Long client_id){
-        return clientClient.getClient(client_id).getBody().isPresent();
+        if(clientClient.getClient(client_id) != null){
+            return Objects.requireNonNull(clientClient.getClient(client_id).getBody()).isPresent();
+        }
+        else return false;
+    }
+
+    public IngredientsExpensesDTO ingredientsExpenses(Integer fromYear, Integer fromMonth, Integer fromDay,
+                                                                      Integer toYear,   Integer toMonth,   Integer toDay) {
+        IngredientsExpensesDTO ingredientsExpensesDTO = new IngredientsExpensesDTO();
+        HashMap<String, String> ingredientMeasure = new HashMap<>();
+        HashMap<String, Double> ingredientExpense = new HashMap<>();
+        LocalDate from = LocalDate.of(fromYear,fromMonth,fromDay);
+        LocalDate to = LocalDate.of(toYear,toMonth,toDay);
+        List<Basket> baskets = basketRepository.findByBasketStatus(BasketStatus.DONE,
+                Date.from(from.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                Date.from(to.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+
+
+        baskets.forEach(basket -> {
+            List<Dish> dishes = basket.getDishes();
+            dishes.forEach(dish -> {
+                List<Composition> compositions = dish.getCompositions();
+                compositions.forEach(composition -> {
+                    String ingredientTitle = composition.getIngredient().getTitle();
+                    if (ingredientExpense.containsKey(ingredientTitle))
+                        ingredientExpense.put(ingredientTitle, ingredientExpense.get(ingredientTitle) + composition.getCount());
+                    else
+                        ingredientExpense.put(ingredientTitle, composition.getCount());
+                });
+            });
+        });
+        ingredientsExpensesDTO.setExpenses(ingredientExpense);
+
+        List<Ingredient> ingredients = (List<Ingredient>) ingredientRepository.findAll();
+        ingredients.forEach(ingredient -> {
+            ingredientMeasure.put(ingredient.getTitle(), ingredient.getMeasure().getType());
+        });
+        ingredientsExpensesDTO.setMeasures(ingredientMeasure);
+
+        return ingredientsExpensesDTO;
     }
 }

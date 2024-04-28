@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Basket;
 import ru.murza.foodmodel.models.Dish;
+import ru.murza.restaurant.dto.IngredientsExpensesDTO;
 import ru.murza.restaurant.service.BasketService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -75,5 +77,17 @@ public class BasketController {
     public ResponseEntity<?> delete(@PathVariable("basket_id") Long basket_id){
         basketService.deleteById(basket_id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Просмотр продаж ингредиентов за промежуток времени",
+            description = "Просмотр продаж ингредиентов за промежуток времени",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/expenses/{fromYear}/{fromMonth}/{fromDay}/{toYear}/{toMonth}/{toDay}")
+    public ResponseEntity<IngredientsExpensesDTO> ingredientsExpenses(@PathVariable("fromYear") Integer fromYear, @PathVariable("fromMonth") Integer fromMonth,
+                                                                      @PathVariable("fromDay") Integer fromDay, @PathVariable("toYear") Integer toYear,
+                                                                      @PathVariable("toMonth") Integer toMonth, @PathVariable("toDay") Integer toDay){
+        return new ResponseEntity<>(basketService.ingredientsExpenses(fromYear, fromMonth, fromDay, toYear, toMonth, toDay), HttpStatus.OK);
     }
 }
