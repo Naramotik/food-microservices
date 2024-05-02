@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.enums.DishStatus;
 
 import java.util.List;
 
@@ -33,12 +34,12 @@ public class Dish {
     @NotEmpty(message = "Not empty title!")
     private String title;
 
-    @OneToMany(mappedBy = "dish")
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL)
     private List<Composition> compositions;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "dishes", fetch = FetchType.LAZY)
-    private List<Store> stores;
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "dishes", fetch = FetchType.LAZY)
+//    private List<Store> stores;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "dishes", fetch = FetchType.LAZY)
@@ -46,4 +47,7 @@ public class Dish {
 
     @Enumerated(EnumType.STRING)
     private DishCategory dishCategory;
+
+    @Enumerated(EnumType.STRING)
+    private DishStatus dishStatus;
 }

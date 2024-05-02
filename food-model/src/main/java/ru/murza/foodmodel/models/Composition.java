@@ -33,9 +33,16 @@ public class Composition {
     @JoinColumn(name = "dish_id")
     private Dish dish;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-
+    @Override
+    public String toString() {
+        return "Composition{" +
+                "id=" + id +
+                ", count=" + count +
+                ", ingredient=" + ingredient +
+                '}';
+    }
 }

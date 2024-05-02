@@ -19,8 +19,17 @@ public interface BasketRepository extends CrudRepository<Basket, Long> {
     Optional<Basket> findByClientId(Long client_id);
 
     @Transactional
+    @Query("from Basket basket where basketStatus = :basketStatus")
+    List<Basket> findByBasketStatus(@Param("basketStatus") BasketStatus basketStatus);
+
+    @Transactional
+    @Query("from Basket basket where basketStatus = :basketStatus and clientId = :clientId")
+    Optional<Basket> findByBasketStatusAndClient_id(@Param("basketStatus") BasketStatus basketStatus,
+                                                @Param("clientId") Long clientId);
+
+    @Transactional
     @Query("from Basket basket where basketStatus = :basketStatus and acceptance_date between :from AND :to")
-    List<Basket> findByBasketStatus(@Param("basketStatus") BasketStatus basketStatus,
+    List<Basket> findByBasketStatusAndBetweenDates(@Param("basketStatus") BasketStatus basketStatus,
                                     @Param("from") Date from,
                                     @Param("to") Date to);
 }

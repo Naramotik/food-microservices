@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.enums.DishStatus;
 import ru.murza.foodmodel.models.Composition;
 import ru.murza.foodmodel.models.Dish;
 import ru.murza.restaurant.dto.CompositionDTO;
@@ -46,7 +47,7 @@ public class DishController {
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
     @GetMapping("/menu")
-    public ResponseEntity<List<DishDTO>> findByCategory(@RequestParam("category") String category){
+    public ResponseEntity<List<Dish>> findByCategory(@RequestParam("category") String category){
         DishCategory dishCategory = null;
 
         for(DishCategory enumCategory : DishCategory.values()){
@@ -57,27 +58,27 @@ public class DishController {
             throw new RuntimeException("Category not found");
 
         List<Dish> dishes = dishService.findByDishCategory(dishCategory);
-        List<DishDTO> dishesDTO = dishes
+        List<Dish> dishesToOut = dishes
                 .stream()
-                .map(dish -> Mapper.modelMapper.map(dish, DishDTO.class))
+                .filter(dish -> dish.getDishStatus().equals(DishStatus.REGULAR))
                 .toList();
-        return new ResponseEntity<>(dishesDTO, HttpStatus.OK);
+        return new ResponseEntity<>(dishesToOut, HttpStatus.OK);
     }
 
-    @Operation(
-            summary = "Вывод композиций выбранного блюда",
-            description = "Вывод композиций выбранного блюда",
-            responses = @ApiResponse(description = "Success", responseCode = "200")
-    )
-    @GetMapping("/{dishId}")
-    public ResponseEntity<List<CompositionDTO>> getCompositions(@PathVariable("dishId")Long dishId){
-        List<Composition> compositionList = dishService.findCompositionsFromDish(dishId);
-        List<CompositionDTO> compositionDTOList = compositionList
-                .stream()
-                .map(composition -> Mapper.modelMapper.map(composition, CompositionDTO.class))
-                .toList();
-        return new ResponseEntity<>(compositionDTOList, HttpStatus.OK);
-    }
+//    @Operation(
+//            summary = "Вывод композиций выбранного блюда",
+//            description = "Вывод композиций выбранного блюда",
+//            responses = @ApiResponse(description = "Success", responseCode = "200")
+//    )
+//    @GetMapping("/{dishId}")
+//    public ResponseEntity<List<CompositionDTO>> getCompositions(@PathVariable("dishId")Long dishId){
+//        List<Composition> compositionList = dishService.findCompositionsFromDish(dishId);
+//        List<CompositionDTO> compositionDTOList = compositionList
+//                .stream()
+//                .map(composition -> Mapper.modelMapper.map(composition, CompositionDTO.class))
+//                .toList();
+//        return new ResponseEntity<>(compositionDTOList, HttpStatus.OK);
+//    }
 
     @Operation(
             summary = "Добавление нового блюда",
@@ -85,12 +86,8 @@ public class DishController {
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
     @PostMapping
-    public ResponseEntity<DishDTO> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
-        System.out.println(dishCompositionsDTO);
-        Dish dish = dishCompositionsDTO.getDish();
-        List<Composition> compositions = dishCompositionsDTO.getCompositions();
-        DishDTO dishDTO = Mapper.modelMapper.map(dishService.save(dish, compositions), DishDTO.class);
-        return new ResponseEntity<>(dishDTO, HttpStatus.CREATED);
+    public ResponseEntity<Dish> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
+        return new ResponseEntity<>(dishService.save(dishCompositionsDTO.getDish(), dishCompositionsDTO.getCompositions()), HttpStatus.CREATED);
     }
 
 //    @PutMapping("/ingredients")

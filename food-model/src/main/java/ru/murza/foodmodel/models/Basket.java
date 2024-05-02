@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.murza.foodmodel.enums.BasketStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "basket", schema = "restaurant_schema", catalog = "postgres")
 public class Basket {
 
@@ -44,10 +46,10 @@ public class Basket {
     @Enumerated(EnumType.STRING)
     private BasketStatus basketStatus;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(name = "store_id")
+//    private Store store;
 
 
     @ManyToMany(fetch = FetchType.LAZY)

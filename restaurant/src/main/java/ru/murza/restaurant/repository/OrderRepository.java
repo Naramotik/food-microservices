@@ -1,4 +1,4 @@
-package ru.murza.order.repository;
+package ru.murza.restaurant.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

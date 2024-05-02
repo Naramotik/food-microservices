@@ -1,5 +1,6 @@
 package ru.murza.foodmodel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -25,12 +26,6 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",
-            nullable = false)
-    @Length(min = 1, max = 30)
-    @NotEmpty(message = "Not empty name!")
-    private String name;
-
     @Column(name = "number",
             nullable = false,
             unique = true)
@@ -38,37 +33,20 @@ public class Client {
     @NotEmpty(message = "Not empty number!")
     private String number;
 
+    @Column(name = "bonus")
+    private Long bonus;
 
-    @Column(name = "password",
-            nullable = false)
-    @NotEmpty(message = "Not empty password!")
-    @Length(min = 6, message = "Short password!")
-    private String password;
+    @OneToMany(mappedBy = "client")
+    private List<Schedule> schedules;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "secondName", column = @Column(name = "manager_second_name")),
-            @AttributeOverride(name = "address", column = @Column(name = "manager_address")),
-            @AttributeOverride(name = "itn", column = @Column(name = "manager_itn"))
-    })
-    private ManagerInfo managerInfo;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "worker_info_id", referencedColumnName = "id")
+    private WorkerInfo workerInfo;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Roles role;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(id, client.id) && Objects.equals(name, client.name) && Objects.equals(number, client.number) && Objects.equals(password, client.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, number, password);
-    }
 
     //    public void setRoles(Roles role){
 //        this.role = role;

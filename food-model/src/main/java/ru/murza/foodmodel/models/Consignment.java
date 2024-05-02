@@ -38,7 +38,7 @@ public class Consignment {
     @Column(name = "count")
     private Double count;
 
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "consignment_invoice", schema = "restaurant_schema", catalog = "postgres",

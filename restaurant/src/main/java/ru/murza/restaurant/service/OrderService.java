@@ -1,4 +1,4 @@
-package ru.murza.order.service;
+package ru.murza.restaurant.service;
 
 import org.springframework.stereotype.Service;
 import ru.murza.amqp.RabbitMQMessageProducer;
@@ -8,10 +8,11 @@ import ru.murza.foodmodel.models.Basket;
 import ru.murza.foodmodel.models.Dish;
 import ru.murza.foodmodel.models.Order;
 import ru.murza.foodmodel.models.Status;
-import ru.murza.order.dto.OrderToSave;
-import ru.murza.order.exception.StatusNotFoundException;
-import ru.murza.order.exception.UserNotFoundException;
-import ru.murza.order.repository.OrderRepository;
+import ru.murza.restaurant.dto.OrderToSave;
+import ru.murza.restaurant.exception.StatusNotFoundException;
+import ru.murza.restaurant.exception.UserNotFoundException;
+import ru.murza.restaurant.repository.OrderRepository;
+
 
 import java.util.*;
 

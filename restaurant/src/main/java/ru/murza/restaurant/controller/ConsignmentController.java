@@ -28,13 +28,11 @@ public class ConsignmentController {
             description = "Добавление экземпляра товара (огурцы владимирские 200гр)",
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
-    @PostMapping("/{ingredient}")
-    public ResponseEntity<ConsignmentDTO> addConsignment(@RequestBody ConsignmentDTO consignmentDTO,
-                                                         @PathVariable("ingredient") String ingredientTitle){
+    @PostMapping
+    public ResponseEntity<Consignment> addConsignment(@RequestBody ConsignmentDTO consignmentDTO){
         Consignment consignment = Mapper.modelMapper.map(consignmentDTO, Consignment.class);
-        consignment = consignmentService.save(consignment, ingredientTitle);
-        consignmentDTO = Mapper.modelMapper.map(consignment, ConsignmentDTO.class);
-        return new ResponseEntity<>(consignmentDTO, HttpStatus.CREATED);
+        consignment = consignmentService.save(consignment, consignmentDTO.getIngredient_title());
+        return new ResponseEntity<>(consignment, HttpStatus.CREATED);
     }
 
     @Operation(
@@ -49,8 +47,8 @@ public class ConsignmentController {
 
 
     @Operation(
-            summary = "Удаление ингредиента",
-            description = "Ручное удаление ингредиента со склада",
+            summary = "Удаление ТОВАРА",
+            description = "Ручное удаление ТОВАРА со склада",
             responses = @ApiResponse(description = "NO_CONTENT", responseCode = "204")
     )
     @DeleteMapping

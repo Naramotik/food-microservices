@@ -45,7 +45,7 @@ public class Invoice {
     @NotEmpty(message = "Not empty title!")
     private String delivery_address;
 
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "invoices", fetch = FetchType.LAZY)
     private List<Consignment> consignments;
 

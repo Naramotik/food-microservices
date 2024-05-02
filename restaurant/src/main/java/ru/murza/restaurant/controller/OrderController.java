@@ -1,4 +1,4 @@
-package ru.murza.order.controller;
+package ru.murza.restaurant.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,10 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Basket;
 import ru.murza.foodmodel.models.Order;
-import ru.murza.order.dto.OrderToSave;
-import ru.murza.order.exception.StatusNotFoundException;
-import ru.murza.order.exception.UserNotFoundException;
-import ru.murza.order.service.OrderService;
+import ru.murza.restaurant.dto.OrderToSave;
+import ru.murza.restaurant.exception.StatusNotFoundException;
+import ru.murza.restaurant.exception.UserNotFoundException;
+import ru.murza.restaurant.service.OrderService;
+
 
 import java.util.HashMap;
 import java.util.List;

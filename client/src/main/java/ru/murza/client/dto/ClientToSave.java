@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClientToSave {
 
-    @NotEmpty(message = "not empty name!")
-    String name;
-
     @NotEmpty(message = "not empty number!")
     String number;
 
-    @NotEmpty(message = "not empty password!")
+    // Поля для работника
+    String name;
+
+    String secondName;
+
+    String itn;
+
+    Double salary;
+
     String password;
 
-    String secondName; // Поле для менеджера
-
-    String address; // Поле для менеджера
-
-    String itn; // Поле для менеджера
 }

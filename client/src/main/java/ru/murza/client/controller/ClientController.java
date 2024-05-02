@@ -34,22 +34,45 @@ public class ClientController {
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
     @PostMapping
-    public ResponseEntity<Client> post(@Valid @RequestBody ClientToSave clientToSave){
+    public ResponseEntity<Client> post(@RequestBody ClientToSave clientToSave){
         return new ResponseEntity<>(clientService.save(clientToSave), HttpStatus.CREATED);
     }
 
     @Operation(
-            summary = "Получение пользователя",
+            summary = "Получение пользователя (Для просмотра бонусов)",
             description = "Получение пользователя по id",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
     @GetMapping("/{client_id}")
-    public ResponseEntity<Client> getClient(@PathVariable Long client_id) throws ClientNotFoundException {
+    public ResponseEntity<Optional<Client>> getClient(@PathVariable Long client_id) throws ClientNotFoundException {
         return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.OK);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                   ЭТИ МЕТОДЫ ПОКА НЕ ИСПОЛЬЗУЮТСЯ
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/register")
     public String addNewUser(@RequestBody Client client){
         return clientService.saveUser(client);
@@ -57,7 +80,7 @@ public class ClientController {
 
     @PostMapping("/token")
     public String getToken(@RequestBody Client client){
-        return clientService.generateToken(client.getName());
+        return clientService.generateToken(client.getNumber());
     }
 
     @GetMapping("/validate")

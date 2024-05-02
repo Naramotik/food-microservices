@@ -29,18 +29,16 @@ public class InvoiceController {
     }
 
     @Operation(
-            summary = "Добавление новой накладной",
-            description = "Добавление новой накладной",
+            summary = "Добавление новой накладной с товарами",
+            description = "Добавление новой накладной с товарами",
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
     @PostMapping
     public ResponseEntity<Invoice> addInvoice(@RequestBody InvoiceConsignmentDTO invoiceConsignmentDTO){
         InvoiceDTO invoiceDTO = invoiceConsignmentDTO.getInvoiceDTO();
         List<ConsignmentDTO> consignmentDTOList = invoiceConsignmentDTO.getConsignmentDTOList();
-
         Invoice invoice = Mapper.modelMapper.map(invoiceDTO, Invoice.class);
         List<Consignment> consignmentList = consignmentDTOList.stream().map(e -> Mapper.modelMapper.map(e, Consignment.class)).collect(Collectors.toList());
-
         return new ResponseEntity<>(invoiceService.save(invoice, consignmentList), HttpStatus.CREATED);
     }
 

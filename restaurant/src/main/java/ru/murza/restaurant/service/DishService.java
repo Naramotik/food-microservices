@@ -3,8 +3,10 @@ package ru.murza.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.murza.foodmodel.enums.DishCategory;
+import ru.murza.foodmodel.enums.DishStatus;
 import ru.murza.foodmodel.models.Composition;
 import ru.murza.foodmodel.models.Dish;
+import ru.murza.restaurant.repository.CompositionRepository;
 import ru.murza.restaurant.repository.DishRepository;
 
 
@@ -18,6 +20,9 @@ public class DishService {
     private DishRepository dishRepository;
     @Autowired
     private CompositionService compositionService;
+
+    @Autowired
+    private CompositionRepository compositionRepository;
 
     public List<Dish> findAll(){
         List<Dish> dishes = new ArrayList<>();
@@ -34,8 +39,19 @@ public class DishService {
     }
 
     public Dish save(Dish dish, List<Composition> compositions){
-        dish.setCompositions(compositions);
-        return dishRepository.save(dish);
+
+        Dish newDish = new Dish();
+        newDish.setTitle(dish.getTitle());
+        newDish.setCost(dish.getCost());
+        newDish.setDishCategory(dish.getDishCategory());
+        newDish.setDishStatus(dish.getDishStatus());
+
+        List<Composition> newCompositions = new ArrayList<>();
+        compositions.forEach(composition -> newCompositions.add(compositionRepository.save(composition)));
+
+        newDish.setCompositions(newCompositions);
+        newCompositions.forEach(composition -> composition.setDish(newDish));
+        return dishRepository.save(newDish);
     }
 
     public void deleteById(Long dishId){

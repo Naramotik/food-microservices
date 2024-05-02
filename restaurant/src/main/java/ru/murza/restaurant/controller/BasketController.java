@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Basket;
+import ru.murza.foodmodel.models.Consignment;
 import ru.murza.foodmodel.models.Dish;
 import ru.murza.restaurant.dto.IngredientsExpensesDTO;
 import ru.murza.restaurant.service.BasketService;
@@ -28,18 +29,18 @@ public class BasketController {
     }
 
     @Operation(
-            summary = "Вывод всех корзин",
-            description = "Вывод всех корзин",
+            summary = "Вывод всех корзин с использованием статуса",
+            description = "Вывод всех корзин с использованием статуса",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
     @GetMapping
-    public ResponseEntity<List<Basket>> findAll(){
-        return new ResponseEntity<>(basketService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Basket>> findAll(@RequestParam(name = "status", required = false) String basketStatus){
+        return new ResponseEntity<>(basketService.findAll(basketStatus), HttpStatus.OK);
     }
 
     @Operation(
-            summary = "Вывод корзины пользователя",
-            description = "Вывод корзины по id указанного пользователя",
+            summary = "Вывод всех корзин пользователя для истории",
+            description = "Вывод всех корзин по id указанного пользователя",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
     @GetMapping("/{client_id}")
@@ -48,29 +49,30 @@ public class BasketController {
     }
 
     @Operation(
-            summary = "Создание корзины нового пользователя",
-            description = "Создание корзины для пользователя, который только что зарегистрировался",
-            responses = @ApiResponse(description = "CREATED",responseCode = "201")
+            summary = "Добавление блюд в корзину (происходит после оплаты) [ЭТО ТИПА СОЗДАНИЕ ЗАКАЗА]",
+            description = "Добавление блюд в корзину (происходит после оплаты) [ЭТО ТИПА СОЗДАНИЕ ЗАКАЗА]",
+            responses = @ApiResponse(description = "ACCEPTED", responseCode = "202")
     )
-    @PostMapping("/{client_id}")
-    public ResponseEntity<Basket> save(@PathVariable Long client_id){
-        return new ResponseEntity<>(basketService.save(client_id), HttpStatus.CREATED);
+    @PostMapping("/dish/{client_id}")
+    public ResponseEntity<Basket> addDishToBasket(@RequestBody List<Dish> dishes,
+                                                  @PathVariable Long client_id){
+        return new ResponseEntity<>(basketService.addDishToBasket(dishes, client_id), HttpStatus.ACCEPTED);
     }
 
     @Operation(
-            summary = "Добавление блюда в корзину",
-            description = "Добавление блюда в корзину",
-            responses = @ApiResponse(description = "ACCEPTED",responseCode = "202")
+            summary = "Изменение статуса заказа (ENGAGED или DONE)",
+            description = "Изменение статуса заказа (ENGAGED или DONE)",
+            responses = @ApiResponse(description = "ACCEPTED", responseCode = "202")
     )
-    @PostMapping("/dish/{client_id}")
-    public ResponseEntity<Basket> addDishToBasket(@RequestBody Dish dish,
-                                                  @PathVariable Long client_id){
-        return new ResponseEntity<>(basketService.addDishToBasket(dish, client_id), HttpStatus.ACCEPTED);
+    @PostMapping("/status/{basket_id}/{status}")
+    public ResponseEntity<Basket> changeStatusBasket(@PathVariable("basket_id") Long basket_id,
+                                                                @PathVariable("status") String status){
+        return new ResponseEntity<>(basketService.changeStatus(basket_id, status), HttpStatus.ACCEPTED);
     }
 
     @Operation(
             summary = "Удаление корзины",
-            description = "Удаление корзины (Вызывается после создания заказа)",
+            description = "Удаление корзины",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
     @DeleteMapping("/{basket_id}")

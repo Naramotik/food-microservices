@@ -1,4 +1,4 @@
-package ru.murza.order.dto;
+package ru.murza.restaurant.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

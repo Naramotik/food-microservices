@@ -15,4 +15,5 @@ public class ConsignmentDTO {
     private String title;
     private Date expiration_date;
     private Double count;
+    private String ingredient_title;
 }

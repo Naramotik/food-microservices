@@ -7,22 +7,22 @@ import ru.murza.foodmodel.models.Consignment;
 import ru.murza.foodmodel.models.Invoice;
 
 import ru.murza.restaurant.repository.InvoiceRepository;
-import ru.murza.restaurant.repository.StateRepository;
+
 
 import java.util.List;
 
 @Service
 public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
-    private final StateRepository stateRepository;
 
-    public InvoiceService(InvoiceRepository invoiceRepository, StateRepository stateRepository) {
+
+    public InvoiceService(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
-        this.stateRepository = stateRepository;
     }
 
     public Invoice save(Invoice invoice, List<Consignment> consignments) {
         invoice.setConsignments(consignments);
+        invoice.setInvoiceStatus(InvoiceStatus.WAITING);
         return invoiceRepository.save(invoice);
     }
 
@@ -31,10 +31,10 @@ public class InvoiceService {
     }
 
     public Invoice changeStateTo(Invoice invoice, String state) {
-        if (state.equals(InvoiceStatus.DRAFT.name()))
-            invoice.setInvoiceStatus(InvoiceStatus.DRAFT);
         if (state.equals(InvoiceStatus.WAITING.name()))
             invoice.setInvoiceStatus(InvoiceStatus.WAITING);
+        if (state.equals(InvoiceStatus.TRANSIT.name()))
+            invoice.setInvoiceStatus(InvoiceStatus.TRANSIT);
         if (state.equals(InvoiceStatus.DONE.name()))
             invoice.setInvoiceStatus(InvoiceStatus.DONE);
         if (state.equals(InvoiceStatus.DECLINE.name()))

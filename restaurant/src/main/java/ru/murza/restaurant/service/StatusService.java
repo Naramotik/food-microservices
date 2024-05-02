@@ -1,9 +1,9 @@
-package ru.murza.order.service;
+package ru.murza.restaurant.service;
 
 import org.springframework.stereotype.Service;
 import ru.murza.foodmodel.models.Status;
-import ru.murza.order.exception.StatusNotFoundException;
-import ru.murza.order.repository.StatusRepository;
+import ru.murza.restaurant.exception.StatusNotFoundException;
+import ru.murza.restaurant.repository.StatusRepository;
 
 import java.util.List;
 import java.util.Optional;

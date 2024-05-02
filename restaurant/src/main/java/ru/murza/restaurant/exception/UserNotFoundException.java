@@ -1,4 +1,4 @@
-package ru.murza.order.exception;
+package ru.murza.restaurant.exception;
 
 public class UserNotFoundException extends Exception{
     public UserNotFoundException(String message) {
