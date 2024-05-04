@@ -48,6 +48,28 @@ public class ClientController {
         return new ResponseEntity<>(clientService.getClient(client_id), HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Списание бонусов",
+            description = "Списание бонусов",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @PostMapping("/{id}/{countBonus}")
+    public ResponseEntity<Client> minusBonus(@PathVariable("id") Long id,
+                                             @PathVariable("countBonus") Long countBonus){
+        return new ResponseEntity<>(clientService.minusBonus(id, countBonus), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "Начисление бонусов",
+            description = "Начисление бонусов",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @PostMapping("/add/{id}/{countBonus}")
+    public ResponseEntity<Client> addBonus(@PathVariable("id") Long id,
+                                           @PathVariable("countBonus") Long countBonus){
+        return new ResponseEntity<>(clientService.addBonus(id, countBonus), HttpStatus.OK);
+    }
 
 
 

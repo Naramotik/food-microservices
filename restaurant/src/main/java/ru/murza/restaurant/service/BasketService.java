@@ -72,10 +72,6 @@ public class BasketService {
         else {
             basket = save(0L);
         }
-            Calendar today = Calendar.getInstance();
-            today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
-            Date todayDate = today.getTime();
-
             basket.setDishes(dishes);
             Date now = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             basket.setAcceptance_date(now);

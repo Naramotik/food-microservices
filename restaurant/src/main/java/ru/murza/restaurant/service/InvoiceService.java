@@ -21,6 +21,7 @@ public class InvoiceService {
     }
 
     public Invoice save(Invoice invoice, List<Consignment> consignments) {
+
         invoice.setConsignments(consignments);
         invoice.setInvoiceStatus(InvoiceStatus.WAITING);
         return invoiceRepository.save(invoice);

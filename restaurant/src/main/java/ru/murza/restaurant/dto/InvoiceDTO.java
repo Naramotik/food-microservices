@@ -18,4 +18,7 @@ public class InvoiceDTO {
     private Date delivery_date;
 
     private String delivery_address;
+
+    private Double totalPrice;
+
 }

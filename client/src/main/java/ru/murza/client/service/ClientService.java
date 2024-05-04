@@ -61,6 +61,19 @@ public class ClientService {
         return clientRepository.findById(clientId);
     }
 
+    public Client minusBonus(Long id, Long countBonus){
+        Client client = clientRepository.findById(id).get();
+        client.setBonus(client.getBonus() - countBonus);
+        return clientRepository.save(client);
+    }
+
+    public Client addBonus(Long id, Long countBonus) {
+        Client client = clientRepository.findById(id).get();
+        client.setBonus(client.getBonus() + countBonus);
+        return clientRepository.save(client);
+    }
+
+
 
 
 

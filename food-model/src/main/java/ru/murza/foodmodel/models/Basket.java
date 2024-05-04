@@ -32,8 +32,6 @@ public class Basket {
     @NotNull(message = "Not empty")
     private Long clientId;
 
-    @Column(name = "order_id")
-    private Long orderId;
 
     @Column(name = "total_price",
             nullable = false)
@@ -46,10 +44,9 @@ public class Basket {
     @Enumerated(EnumType.STRING)
     private BasketStatus basketStatus;
 
-//    @JsonIgnore
-//    @ManyToOne
-//    @JoinColumn(name = "store_id")
-//    private Store store;
+    @ManyToOne
+    @JoinColumn(name = "bonus_id")
+    private Bonus bonus;
 
 
     @ManyToMany(fetch = FetchType.LAZY)

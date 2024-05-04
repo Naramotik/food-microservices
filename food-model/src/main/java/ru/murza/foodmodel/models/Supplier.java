@@ -34,4 +34,11 @@ public class Supplier {
     @NotEmpty(message = "Not empty title!")
     private String name;
 
+    @Column(
+            name = "email",
+            nullable = false
+    )
+    @NotEmpty(message = "Not empty email!")
+    private String email;
+
 }

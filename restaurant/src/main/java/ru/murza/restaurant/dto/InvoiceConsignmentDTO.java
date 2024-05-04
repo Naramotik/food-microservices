@@ -10,6 +10,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceConsignmentDTO {
+    Long supplierId;
+
     InvoiceDTO invoiceDTO;
+
     List<ConsignmentDTO> consignmentDTOList;
+
+
 }

@@ -24,6 +24,9 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "totalPrice")
+    private Double totalPrice;
+
     @Column(
             name = "transaction_date",
             nullable = false
@@ -46,7 +49,7 @@ public class Invoice {
     private String delivery_address;
 
 
-    @ManyToMany(mappedBy = "invoices", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "invoice")
     private List<Consignment> consignments;
 
     @ManyToOne
@@ -55,7 +58,5 @@ public class Invoice {
 
     @Enumerated(EnumType.STRING)
     private InvoiceStatus invoiceStatus;
-//    @ManyToOne
-//    @JoinColumn(name = "state_id")
-//    private State state;
+
 }

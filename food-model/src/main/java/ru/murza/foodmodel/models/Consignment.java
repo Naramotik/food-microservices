@@ -38,14 +38,13 @@ public class Consignment {
     @Column(name = "count")
     private Double count;
 
+    @Column(name = "price")
+    private Double price;
+
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "consignment_invoice", schema = "restaurant_schema", catalog = "postgres",
-            joinColumns = @JoinColumn(name = "consignment_id"),
-            inverseJoinColumns = @JoinColumn(name = "invoice_id")
-    )
-    private List<Invoice> invoices;
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
 
 
     @ManyToOne
