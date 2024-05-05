@@ -55,7 +55,7 @@ public class CompositionController {
             description = "Удаление композиции",
             responses = @ApiResponse(description = "NO_CONTENT", responseCode = "204")
     )
-    @DeleteMapping("/compositionId")
+    @DeleteMapping("/{compositionId}")
     public ResponseEntity<?> delete(@PathVariable("compositionId") Long compositionId){
         compositionService.deleteById(compositionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

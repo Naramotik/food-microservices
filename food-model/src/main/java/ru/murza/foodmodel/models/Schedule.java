@@ -25,7 +25,7 @@ public class Schedule {
     private Date date;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.murza.foodmodel.models.Basket;
+import ru.murza.foodmodel.models.Bonus;
 import ru.murza.foodmodel.models.Consignment;
 import ru.murza.foodmodel.models.Dish;
 import ru.murza.restaurant.dto.IngredientsExpensesDTO;
@@ -92,4 +93,16 @@ public class BasketController {
                                                                       @PathVariable("toMonth") Integer toMonth, @PathVariable("toDay") Integer toDay){
         return new ResponseEntity<>(basketService.ingredientsExpenses(fromYear, fromMonth, fromDay, toYear, toMonth, toDay), HttpStatus.OK);
     }
+
+
+    @Operation(
+            summary = "Установка процента, которыый будет начисляться от суммы заказа в бонусы",
+            description = "Установка процента, которыый будет начисляться от суммы заказа в бонусы",
+            responses = @ApiResponse(description = "ACCEPTED", responseCode = "202")
+    )
+    @PostMapping("/bonus/{percent}")
+    public ResponseEntity<Bonus> changePercent(@PathVariable("percent") Long percent){
+        return new ResponseEntity<>(basketService.changePercent(percent), HttpStatus.ACCEPTED);
+    }
+
 }

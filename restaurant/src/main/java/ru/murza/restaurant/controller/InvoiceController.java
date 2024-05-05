@@ -39,7 +39,8 @@ public class InvoiceController {
         List<ConsignmentDTO> consignmentDTOList = invoiceConsignmentDTO.getConsignmentDTOList();
         Invoice invoice = Mapper.modelMapper.map(invoiceDTO, Invoice.class);
         List<Consignment> consignmentList = consignmentDTOList.stream().map(e -> Mapper.modelMapper.map(e, Consignment.class)).collect(Collectors.toList());
-        return new ResponseEntity<>(invoiceService.save(invoice, consignmentList), HttpStatus.CREATED);
+        Long supplierId = invoiceConsignmentDTO.getSupplierId();
+        return new ResponseEntity<>(invoiceService.save(invoice, consignmentList, supplierId), HttpStatus.CREATED);
     }
 
     @Operation(
@@ -50,8 +51,7 @@ public class InvoiceController {
     @PostMapping("/{state}")
     public ResponseEntity<Invoice> changeStateTo(@RequestBody InvoiceDTO invoiceDTO,
                                                  @PathVariable("state") String state){
-        Invoice invoice = Mapper.modelMapper.map(invoiceDTO, Invoice.class);
-        return new ResponseEntity<>(invoiceService.changeStateTo(invoice,state), HttpStatus.OK);
+        return new ResponseEntity<>(invoiceService.changeStateTo(invoiceDTO,state), HttpStatus.OK);
     }
 
     @Operation(

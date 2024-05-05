@@ -51,7 +51,7 @@ public class ConsignmentController {
             description = "Ручное удаление ТОВАРА со склада",
             responses = @ApiResponse(description = "NO_CONTENT", responseCode = "204")
     )
-    @DeleteMapping
+    @DeleteMapping("/{consignmentId}")
     public ResponseEntity<?> delete(@PathVariable("consignmentId") Long consignmentId){
         consignmentService.deleteById(consignmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

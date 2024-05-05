@@ -43,10 +43,8 @@ public class IngredientController {
             responses = @ApiResponse(description = "CREATED", responseCode = "201")
     )
     @PostMapping
-    public ResponseEntity<IngredientDTO> save(@Valid @RequestBody Ingredient ingredient){
-        Ingredient savedIngredient = ingredientService.save(ingredient);
-        IngredientDTO outIngredientDTO = Mapper.modelMapper.map(savedIngredient, IngredientDTO.class);
-        return new ResponseEntity<>(outIngredientDTO, HttpStatus.CREATED);
+    public ResponseEntity<Ingredient> save(@Valid @RequestBody Ingredient ingredient){
+        return new ResponseEntity<>(ingredientService.save(ingredient), HttpStatus.CREATED);
     }
 
     @Operation(
@@ -54,7 +52,7 @@ public class IngredientController {
             description = "Удаление ингредиента",
             responses = @ApiResponse(description = "NO_CONTENT", responseCode = "204")
     )
-    @DeleteMapping("/ingredientId")
+    @DeleteMapping("/{ingredientId}")
     public ResponseEntity<?> delete(@PathVariable("ingredientId") Long ingredientId){
         ingredientService.deleteById(ingredientId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,29 +1,33 @@
 package ru.murza.client.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.murza.client.dto.ClientToSave;
 import ru.murza.client.exception.ClientNotFoundException;
 import ru.murza.client.repository.ClientRepository;
+import ru.murza.client.repository.ScheduleRepository;
 import ru.murza.feignclients.client.RestaurantClient;
-import ru.murza.foodmodel.models.Client;
-import ru.murza.foodmodel.models.Roles;
-import ru.murza.foodmodel.models.WorkerInfo;
+import ru.murza.foodmodel.enums.BasketStatus;
+import ru.murza.foodmodel.models.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ClientService {
     private RestaurantClient restaurantClient;
     private final ClientRepository clientRepository;
+    private final ScheduleRepository scheduleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtService jwtService;
 
-    public ClientService(RestaurantClient restaurantClient, ClientRepository clientRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public ClientService(RestaurantClient restaurantClient, ClientRepository clientRepository, ScheduleRepository scheduleRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.restaurantClient = restaurantClient;
         this.clientRepository = clientRepository;
+        this.scheduleRepository = scheduleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
     }
@@ -45,15 +49,11 @@ public class ClientService {
         client.setBonus(0L);
         client.setNumber(clientToSave.getNumber());
 
-        //Client savedClient = clientRepository.save(client);
-        //restaurantClient.save(savedClient.getId());
-
-        //TODO НАЗНАЧЕНИЕ РОЛЕЙ
-//        if (clientToSave.getItn() != null){
-//            client.setRole(new Roles(1L, null, null));
-//        } else {
-//            client.setRole(new Roles(2L, null, null));
-//        }
+        if (clientToSave.getItn() != null){
+            client.setRole(new Roles(1L, null, null));
+        } else {
+            client.setRole(new Roles(2L, null, null));
+        }
         return clientRepository.save(client);
     }
 
@@ -74,7 +74,16 @@ public class ClientService {
     }
 
 
-
+    public Client addToSchedule(Long id, int year, int month, int day) {
+        LocalDate localDate = LocalDate.of(year, month, day);
+        Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        Schedule schedule = new Schedule();
+        schedule.setDate(date);
+        Client client = clientRepository.findById(id).get();
+        client.getSchedules().add(schedule);
+        schedule.setClient(client);
+        return clientRepository.save(client);
+    }
 
 
 
@@ -98,5 +107,6 @@ public class ClientService {
     public void validateToken(String token){
         jwtService.validateToken(token);
     }
+
 
 }

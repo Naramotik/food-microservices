@@ -19,6 +19,5 @@ public class InvoiceDTO {
 
     private String delivery_address;
 
-    private Double totalPrice;
 
 }

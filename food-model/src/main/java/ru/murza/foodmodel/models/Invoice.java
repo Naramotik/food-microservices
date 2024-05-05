@@ -31,14 +31,12 @@ public class Invoice {
             name = "transaction_date",
             nullable = false
     )
-    @NotEmpty(message = "Not empty title!")
     private Date transaction_date;
 
     @Column(
             name = "delivery_date",
             nullable = false
     )
-    @NotEmpty(message = "Not empty title!")
     private Date delivery_date;
 
     @Column(
@@ -49,7 +47,7 @@ public class Invoice {
     private String delivery_address;
 
 
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<Consignment> consignments;
 
     @ManyToOne

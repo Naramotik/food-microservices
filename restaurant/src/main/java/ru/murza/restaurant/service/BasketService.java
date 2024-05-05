@@ -7,6 +7,7 @@ import ru.murza.foodmodel.enums.BasketStatus;
 import ru.murza.foodmodel.models.*;
 import ru.murza.restaurant.dto.IngredientsExpensesDTO;
 import ru.murza.restaurant.repository.BasketRepository;
+import ru.murza.restaurant.repository.BonusRepository;
 import ru.murza.restaurant.repository.ConsignmentRepository;
 import ru.murza.restaurant.repository.IngredientRepository;
 
@@ -14,7 +15,6 @@ import ru.murza.restaurant.repository.IngredientRepository;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,12 +23,14 @@ public class BasketService {
     private final BasketRepository basketRepository;
     private final IngredientRepository ingredientRepository;
     private final ConsignmentRepository consignmentRepository;
+    private final BonusRepository bonusRepository;
     private final ClientClient clientClient;
 
-    public BasketService(BasketRepository basketRepository, IngredientRepository ingredientRepository, ConsignmentRepository consignmentRepository, ClientClient clientClient) {
+    public BasketService(BasketRepository basketRepository, IngredientRepository ingredientRepository, ConsignmentRepository consignmentRepository, BonusRepository bonusRepository, ClientClient clientClient) {
         this.basketRepository = basketRepository;
         this.ingredientRepository = ingredientRepository;
         this.consignmentRepository = consignmentRepository;
+        this.bonusRepository = bonusRepository;
         this.clientClient = clientClient;
     }
 
@@ -77,6 +79,8 @@ public class BasketService {
             basket.setAcceptance_date(now);
             Basket savedBasket = basketRepository.save(basket);
             savedBasket.setTotal_price(calculateCost(savedBasket));
+
+            savedBasket.setBonus(bonusRepository.findFirstByOrderByIdDesc());
             checkConsignments(savedBasket.getId());
             return basketRepository.save(savedBasket);
 
@@ -198,5 +202,11 @@ public class BasketService {
                 }
             }
         }
+    }
+
+    public Bonus changePercent(Long percent) {
+        Bonus bonus = new Bonus();
+        bonus.setPercent(percent);
+        return bonusRepository.save(bonus);
     }
 }

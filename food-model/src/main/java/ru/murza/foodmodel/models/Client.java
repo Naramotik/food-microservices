@@ -29,14 +29,12 @@ public class Client {
     @Column(name = "number",
             nullable = false,
             unique = true)
-    @Length(min = 6, max = 10, message = "Wrong number length!")
-    @NotEmpty(message = "Not empty number!")
     private String number;
 
     @Column(name = "bonus")
     private Long bonus;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Schedule> schedules;
 
     @OneToOne(cascade=CascadeType.ALL)

@@ -15,6 +15,7 @@ import ru.murza.client.repository.ClientRepository;
 import ru.murza.client.service.ClientService;
 import ru.murza.foodmodel.models.Client;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -39,7 +40,7 @@ public class ClientController {
     }
 
     @Operation(
-            summary = "Получение пользователя (Для просмотра бонусов)",
+            summary = "Получение пользователя по id",
             description = "Получение пользователя по id",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
@@ -73,6 +74,18 @@ public class ClientController {
 
 
 
+    @Operation(
+            summary = "Добавление рабочего дня",
+            description = "Добавление рабочего дня",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @PostMapping("/schedule/{id}")
+    public ResponseEntity<Client> addToSchedule(@PathVariable("id") Long id,
+                                                @RequestParam(name = "year") int year,
+                                                @RequestParam(name = "month") int month,
+                                                @RequestParam(name = "day") int day){
+        return new ResponseEntity<>(clientService.addToSchedule(id, year, month, day), HttpStatus.OK);
+    }
 
 
 
