@@ -12,9 +12,11 @@ import ru.murza.foodmodel.models.*;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -109,4 +111,12 @@ public class ClientService {
     }
 
 
+    public List<Client> getWorkers() {
+        List<Client> clients = (List<Client>) clientRepository.findAll();
+        return clients.stream().filter(client -> client.getWorkerInfo() != null).toList();
+    }
+
+    public Optional<Client> getClientByNubmer(String number) {
+        return clientRepository.findByNumber(number);
+    }
 }

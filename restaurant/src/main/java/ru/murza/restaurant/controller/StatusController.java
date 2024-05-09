@@ -12,7 +12,7 @@ import ru.murza.restaurant.exception.StatusNotFoundException;
 import ru.murza.restaurant.service.StatusService;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/status")
 @Tag(name="Status")

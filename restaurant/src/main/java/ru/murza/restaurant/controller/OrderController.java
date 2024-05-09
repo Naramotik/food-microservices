@@ -19,7 +19,7 @@ import ru.murza.restaurant.service.OrderService;
 
 import java.util.HashMap;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/order")
 @Tag(name = "Order")

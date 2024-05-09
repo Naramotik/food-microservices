@@ -38,4 +38,8 @@ public class ConsignmentService {
     public void deleteById(Long id){
         consignmentRepository.deleteById(id);
     }
+
+    public Consignment findOne(Long id) {
+        return consignmentRepository.findById(id).get();
+    }
 }

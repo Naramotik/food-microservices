@@ -28,4 +28,8 @@ public class IngredientService {
     public void deleteById(Long ingredientId){
         ingredientRepository.deleteById(ingredientId);
     }
+
+    public Ingredient findById(Long id) {
+        return ingredientRepository.findById(id).get();
+    }
 }

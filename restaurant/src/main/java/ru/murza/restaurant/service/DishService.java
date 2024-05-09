@@ -43,6 +43,9 @@ public class DishService {
         Dish newDish = new Dish();
         newDish.setTitle(dish.getTitle());
         newDish.setCost(dish.getCost());
+        newDish.setDiscount(dish.getDiscount());
+        newDish.setCalorie(dish.getCalorie());
+        newDish.setTechnologicalMap(dish.getTechnologicalMap());
         newDish.setDishCategory(dish.getDishCategory());
         newDish.setDishStatus(dish.getDishStatus());
 
@@ -78,5 +81,15 @@ public class DishService {
                 dish.setDishCategory(DishCategory.OTHER);
         }
         return dishRepository.save(dish);
+    }
+
+    public Dish setDiscount(Long dish_id, Long percent) {
+        Dish dish = dishRepository.findById(dish_id).get();
+        dish.setDiscount(percent);
+        return dishRepository.save(dish);
+    }
+
+    public Dish findOne(Long id) {
+        return dishRepository.findById(id).get();
     }
 }

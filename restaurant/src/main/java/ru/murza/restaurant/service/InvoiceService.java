@@ -60,4 +60,8 @@ public class InvoiceService {
             invoice1.setInvoiceStatus(InvoiceStatus.DECLINE);
         return invoiceRepository.save(invoice1);
     }
+
+    public Invoice findOne(Long id) {
+        return invoiceRepository.findById(id).get();
+    }
 }

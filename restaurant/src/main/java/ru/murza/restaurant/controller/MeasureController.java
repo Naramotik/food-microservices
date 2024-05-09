@@ -17,7 +17,7 @@ import ru.murza.restaurant.util.Mapper;
 
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @Transactional
 @RequestMapping("/api/v1/measure")

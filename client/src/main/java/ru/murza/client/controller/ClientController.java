@@ -16,6 +16,7 @@ import ru.murza.client.service.ClientService;
 import ru.murza.foodmodel.models.Client;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -50,6 +51,26 @@ public class ClientController {
     }
 
     @Operation(
+            summary = "Получение пользователя по телефону",
+            description = "Получение пользователя по телефону",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/login/{number}")
+    public ResponseEntity<Optional<Client>> getClientByNumber(@PathVariable String number) throws ClientNotFoundException {
+        return new ResponseEntity<>(clientService.getClientByNubmer(number), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Получение всех работников",
+            description = "Получение всех работников",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping
+    public ResponseEntity<List<Client>> getClient() throws ClientNotFoundException {
+        return new ResponseEntity<>(clientService.getWorkers(), HttpStatus.OK);
+    }
+
+    @Operation(
             summary = "Списание бонусов",
             description = "Списание бонусов",
             responses = @ApiResponse(description = "Success", responseCode = "200")
@@ -71,6 +92,7 @@ public class ClientController {
                                            @PathVariable("countBonus") Long countBonus){
         return new ResponseEntity<>(clientService.addBonus(id, countBonus), HttpStatus.OK);
     }
+
 
 
 

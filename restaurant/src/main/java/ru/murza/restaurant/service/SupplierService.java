@@ -24,4 +24,8 @@ public class SupplierService {
     public Supplier save(Supplier supplier){
         return supplierRepository.save(supplier);
     }
+
+    public Supplier findOne(Long id) {
+        return supplierRepository.findById(id).get();
+    }
 }

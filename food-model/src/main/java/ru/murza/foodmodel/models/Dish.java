@@ -34,6 +34,15 @@ public class Dish {
     @NotEmpty(message = "Not empty title!")
     private String title;
 
+    @Column(name = "calorie")
+    private Double calorie;
+
+    @Column(name = "technologicalMap")
+    private String technologicalMap;
+
+    @Column(name = "discount")
+    private Long discount;
+
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL)
     private List<Composition> compositions;
 

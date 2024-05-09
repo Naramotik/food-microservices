@@ -209,4 +209,8 @@ public class BasketService {
         bonus.setPercent(percent);
         return bonusRepository.save(bonus);
     }
+
+    public Basket findOne(Long id) {
+        return basketRepository.findById(id).get();
+    }
 }

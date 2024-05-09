@@ -21,6 +21,7 @@ import ru.murza.restaurant.util.Mapper;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/dish")
 @Tag(name = "Dish")
 public class DishController {
@@ -39,6 +40,16 @@ public class DishController {
     @GetMapping
     public ResponseEntity<List<Dish>> findAll(){
         return new ResponseEntity<>(dishService.findAll(), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Вывод блюда по id",
+            description = "Вывод блюда по id",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Dish> findOne(@PathVariable("id") Long id){
+        return new ResponseEntity<>(dishService.findOne(id), HttpStatus.OK);
     }
 
     @Operation(
@@ -88,6 +99,17 @@ public class DishController {
     @PostMapping
     public ResponseEntity<Dish> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
         return new ResponseEntity<>(dishService.save(dishCompositionsDTO.getDish(), dishCompositionsDTO.getCompositions()), HttpStatus.CREATED);
+    }
+
+    @Operation(
+            summary = "Изменение скидки блюда",
+            description = "Изменение скидки блюда",
+            responses = @ApiResponse(description = "CREATED", responseCode = "201")
+    )
+    @PostMapping("/{dish_id}/{percent}")
+    public ResponseEntity<Dish> save(@PathVariable("dish_id") Long dish_id,
+                                     @PathVariable("percent") Long percent){
+        return new ResponseEntity<>(dishService.setDiscount(dish_id, percent), HttpStatus.CREATED);
     }
 
 //    @PutMapping("/ingredients")

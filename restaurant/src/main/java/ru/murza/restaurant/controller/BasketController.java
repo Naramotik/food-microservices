@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/basket")
 @Tag(name = "Basket")
 public class BasketController {
@@ -47,6 +48,16 @@ public class BasketController {
     @GetMapping("/{client_id}")
     public ResponseEntity<Basket> findBasket(@PathVariable Long client_id){
         return new ResponseEntity<>(basketService.findBasket(client_id), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Вывод корзины по id",
+            description = "Вывод корзины по id",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Basket> findOne(@PathVariable Long id){
+        return new ResponseEntity<>(basketService.findOne(id), HttpStatus.OK);
     }
 
     @Operation(

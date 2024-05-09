@@ -17,6 +17,7 @@ import ru.murza.restaurant.util.Mapper;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/ingredient")
 @Tag(name = "Ingredient")
 public class IngredientController {
@@ -35,6 +36,16 @@ public class IngredientController {
     @GetMapping
     public ResponseEntity<List<Ingredient>> findAll(){
         return new ResponseEntity<>(ingredientService.findAll(), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Вывод ингредиента по айди",
+            description = "Вывод ингредиента по айди",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Ingredient> findOne(@PathVariable("id") Long id){
+        return new ResponseEntity<>(ingredientService.findById(id), HttpStatus.OK);
     }
 
     @Operation(

@@ -17,7 +17,7 @@ import ru.murza.restaurant.util.Mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/invoice")
 @Tag(name = "Invoice")
@@ -62,5 +62,15 @@ public class InvoiceController {
     @GetMapping
     public ResponseEntity<List<Invoice>> findAll(){
         return new ResponseEntity<>(invoiceService.findAll(), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Вывод накладной",
+            description = "Вывод накладной",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Invoice> findAll(@PathVariable("id") Long id){
+        return new ResponseEntity<>(invoiceService.findOne(id), HttpStatus.OK);
     }
 }

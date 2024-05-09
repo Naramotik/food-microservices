@@ -11,7 +11,7 @@ import ru.murza.restaurant.dto.SupplierDTO;
 import ru.murza.restaurant.service.SupplierService;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/supplier")
 @Tag(name = "Supplier")
@@ -30,6 +30,16 @@ public class SupplierController {
     @GetMapping
     public ResponseEntity<List<Supplier>> findAllSuppliers (){
         return new ResponseEntity<>(supplierService.findAll(), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Вывод поставщика",
+            description = "Вывод поставщика",
+            responses = @ApiResponse(description = "Success", responseCode = "200")
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<Supplier> findAllSuppliers (@PathVariable("id") Long id){
+        return new ResponseEntity<>(supplierService.findOne(id), HttpStatus.OK);
     }
 
     @Operation(
