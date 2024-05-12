@@ -6,8 +6,11 @@ import ru.murza.foodmodel.enums.DishCategory;
 import ru.murza.foodmodel.enums.DishStatus;
 import ru.murza.foodmodel.models.Composition;
 import ru.murza.foodmodel.models.Dish;
+import ru.murza.foodmodel.models.Ingredient;
+import ru.murza.restaurant.dto.CompositionToSaveDTO;
 import ru.murza.restaurant.repository.CompositionRepository;
 import ru.murza.restaurant.repository.DishRepository;
+import ru.murza.restaurant.repository.IngredientRepository;
 
 
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ public class DishService {
 
     @Autowired
     private CompositionRepository compositionRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     public List<Dish> findAll(){
         List<Dish> dishes = new ArrayList<>();
@@ -38,7 +43,18 @@ public class DishService {
         return compositionService.findByDishId(dishId);
     }
 
-    public Dish save(Dish dish, List<Composition> compositions){
+    public Dish save(Dish dish, List<CompositionToSaveDTO> compositionToSaveDTOS){
+
+        List<Composition> compositions = new ArrayList<>();
+
+        compositionToSaveDTOS.forEach(compositionToSaveDTO -> {
+            Composition composition2 = new Composition();
+            composition2.setCount(compositionToSaveDTO.getCount());
+            Ingredient ingredient = ingredientRepository.findById(compositionToSaveDTO.getIngredientId()).get();
+            composition2.setIngredient(ingredient);
+            compositions.add(composition2);
+        });
+
 
         Dish newDish = new Dish();
         newDish.setTitle(dish.getTitle());

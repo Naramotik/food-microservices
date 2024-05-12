@@ -98,7 +98,7 @@ public class DishController {
     )
     @PostMapping
     public ResponseEntity<Dish> save(@RequestBody DishCompositionsDTO dishCompositionsDTO){
-        return new ResponseEntity<>(dishService.save(dishCompositionsDTO.getDish(), dishCompositionsDTO.getCompositions()), HttpStatus.CREATED);
+        return new ResponseEntity<>(dishService.save(dishCompositionsDTO.getDish(), dishCompositionsDTO.getCompositionToSaveDTOS()), HttpStatus.CREATED);
     }
 
     @Operation(

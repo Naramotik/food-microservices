@@ -16,5 +16,5 @@ public class DishCompositionsDTO {
 
     Dish dish;
 
-    List<Composition> compositions;
+    List<CompositionToSaveDTO> compositionToSaveDTOS;
 }
