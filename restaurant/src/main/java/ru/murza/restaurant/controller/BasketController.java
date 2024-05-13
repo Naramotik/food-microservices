@@ -55,7 +55,7 @@ public class BasketController {
             description = "Вывод корзины по id",
             responses = @ApiResponse(description = "Success", responseCode = "200")
     )
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Basket> findOne(@PathVariable Long id){
         return new ResponseEntity<>(basketService.findOne(id), HttpStatus.OK);
     }
